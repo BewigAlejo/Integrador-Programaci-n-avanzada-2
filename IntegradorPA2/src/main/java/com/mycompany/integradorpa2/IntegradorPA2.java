@@ -1,20 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.integradorpa2;
 
 import com.mycompany.integradorpa2.persistencia.ControladoraPersistencia;
-import javax.persistence.Persistence;
+import com.mycompany.integradorpa2.MenuConsola;
 
-/**
- *
- * @author Usuario
- */
 public class IntegradorPA2 {
 
     public static void main(String[] args) {
-        new ControladoraPersistencia();
-        System.out.println("✅ Tablas creadas correctamente en MySQL.");
+
+        ControladoraPersistencia control = new ControladoraPersistencia();
+
+        
+        MenuConsola consola = new MenuConsola(control);
+
+        System.out.println("Tablas creadas correctamente en MySQL.");
+        System.out.println("=======================================");
+        System.out.println("      SISTEMA DE ADOPCION DE GATOS");
+        System.out.println("=======================================");
+
+        
+        consola.iniciar();
     }
 }
