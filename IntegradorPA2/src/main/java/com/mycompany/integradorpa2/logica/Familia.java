@@ -61,7 +61,7 @@ public class Familia extends Usuario {
         return adopciones;
     }
 
-    public void setAdopciones(List adopciones) {
+    public void setAdopciones(List<Adopcion> adopciones) {
         this.adopciones = adopciones;
     }
 

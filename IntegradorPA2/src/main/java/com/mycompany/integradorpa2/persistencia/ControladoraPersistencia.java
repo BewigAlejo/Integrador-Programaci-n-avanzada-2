@@ -37,45 +37,4 @@ public class ControladoraPersistencia {
         this.zonaJpa = new ZonaJpaController();
     }
     
-    // ================= FAMILIA =================
-    public void crearFamilia(com.mycompany.integradorpa2.logica.Familia f) {
-        familiaJpa.create(f);
-    }
-
-    public void actualizarFamilia(com.mycompany.integradorpa2.logica.Familia f) {
-        // Si tu FamiliaJpaController.edit lanza excepciones chequeadas, podés envolverlas acá
-        try {
-            familiaJpa.edit(f);
-        } catch (Exception e) {
-            throw new RuntimeException("No se pudo actualizar la familia id=" + f.getId(), e);
-        }
-    }
-
-    public void eliminarFamilia(int id) {
-        try {
-            familiaJpa.destroy(id);
-        } catch (Exception e) { // p.ej. NonexistentEntityException, IllegalOrphanException (según tu implementación)
-            throw new RuntimeException("No se pudo eliminar la familia id=" + id, e);
-        }
-    }
-
-    public com.mycompany.integradorpa2.logica.Familia traerFamilia(int id) {
-        return familiaJpa.findFamilia(id);
-    }
-
-    public java.util.List<com.mycompany.integradorpa2.logica.Familia> traerFamilias() {
-        return familiaJpa.findFamiliaEntities();
-    }
-
-    // opcionales útiles
-    public com.mycompany.integradorpa2.logica.Familia traerFamiliaPorEmail(String email) {
-        return familiaJpa.findByEmail(email);
-    }
-
-    public java.util.List<com.mycompany.integradorpa2.logica.Familia> buscarFamiliasPorNombre(String patron) {
-        return familiaJpa.searchByNombreLike(patron);
-    }
-
-    //========== HASTA ACA FAMILIA ==========
 }
-

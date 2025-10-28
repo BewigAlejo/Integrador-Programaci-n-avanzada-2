@@ -1,62 +1,60 @@
 package com.mycompany.integradorpa2;
 
-import com.mycompany.integradorpa2.persistencia.ControladoraPersistencia;
-import com.mycompany.integradorpa2.repositorios.FamiliaRepository;
-import com.mycompany.integradorpa2.CRUD.FamiliaCRUD;
+import com.mycompany.integradorpa2.dao.FamiliaDAOJpa;
+import com.mycompany.integradorpa2.logica.Familia;
 import java.util.Scanner;
 
 public class MenuConsola {
-
-    private final Scanner sc = new Scanner(System.in);
-    private final FamiliaCRUD familiaCrud;
-
-    public MenuConsola(ControladoraPersistencia control) {
-        var repoFamilia = new FamiliaRepository(control);
-        this.familiaCrud = new FamiliaCRUD(repoFamilia);
-    }
+    private final FamiliaDAOJpa familiaDao = new FamiliaDAOJpa();
 
     public void iniciar() {
+        Scanner sc = new Scanner(System.in);
         int opcion;
         do {
-            System.out.println("=======================================");
-            System.out.println("      SISTEMA DE ADOPCION DE GATOS");
-            System.out.println("=======================================");
-            System.out.println("1. Ingresar como ADMIN");
-            System.out.println("2. Ingresar como USUARIO");
+            System.out.println("\n=== MENÚ PRINCIPAL ===");
+            System.out.println("1. Familias");
+            System.out.println("2. Gatos");
+            System.out.println("3. Tareas");
             System.out.println("0. Salir");
-            System.out.print("Seleccione una opcion: ");
-            opcion = sc.nextInt(); sc.nextLine();
+            System.out.print("Opción: ");
+            opcion = sc.nextInt();
+            sc.nextLine();
 
             switch (opcion) {
-                case 1 -> menuAdmin();
-                case 2 -> menuUsuario();
-                case 0 -> System.out.println("Saliendo del sistema...");
-                default -> System.out.println("Opcion invalida.");
+                case 1 -> menuFamilias(sc);
+                case 0 -> System.out.println("Saliendo...");
+                default -> System.out.println("Opción inválida.");
             }
         } while (opcion != 0);
     }
 
-    private void menuAdmin() {
-        int opcion;
+    private void menuFamilias(Scanner sc) {
+        int op;
         do {
-            System.out.println("\n=== MENU ADMIN ===");
-            System.out.println("1. CRUD Familia");
+            System.out.println("\n=== CRUD FAMILIAS ===");
+            System.out.println("1. Crear");
+            System.out.println("2. Listar");
+            System.out.println("3. Eliminar");
             System.out.println("0. Volver");
-            System.out.print("Seleccione una opcion: ");
-            opcion = sc.nextInt(); sc.nextLine();
+            System.out.print("Opción: ");
+            op = sc.nextInt(); sc.nextLine();
 
-            switch (opcion) {
-                case 1 -> familiaCrud.mostrarMenu(sc);
-                case 0 -> System.out.println("Volviendo al menu principal...");
-                default -> System.out.println("Opcion invalida.");
+            switch (op) {
+                case 1 -> {
+                    Familia f = new Familia();
+                    System.out.print("Nombre: "); f.setNombre(sc.nextLine());
+                    System.out.print("Email: "); f.setEmail(sc.nextLine());
+                    familiaDao.crear(f);
+                }
+                case 2 -> familiaDao.listarTodos().forEach(System.out::println);
+                case 3 -> {
+                    System.out.print("ID a eliminar: ");
+                    Long id = sc.nextLong();
+                    familiaDao.eliminar(id);
+                }
+                case 0 -> System.out.println("Volviendo...");
+                default -> System.out.println("Opción inválida.");
             }
-        } while (opcion != 0);
-    }
-
-    private void menuUsuario() {
-        System.out.println("\n=== MENU USUARIO ===");
-        System.out.println("(Por el momento no hay opciones disponibles)");
-        System.out.println("Presione Enter para volver...");
-        sc.nextLine();
+        } while (op != 0);
     }
 }

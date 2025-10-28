@@ -1,141 +1,118 @@
-
 package com.mycompany.integradorpa2.persistencia;
 
-import com.mycompany.integradorpa2.logica.Familia;   
+import com.mycompany.integradorpa2.logica.Adopcion;
+import com.mycompany.integradorpa2.logica.Familia;
 
-import java.util.List;                                
-import javax.persistence.EntityManager;               
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;           
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;                  
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+public class FamiliaJpaController implements Serializable {
 
-
-public class FamiliaJpaController {
-    private EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
 
     public FamiliaJpaController() {
-        this.emf = Persistence.createEntityManagerFactory("sistema_gatosPU");
+        this.emf = JpaUtil.getEmf();  
     }
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
-    // CREATE
+
+    // ---------- CRUD ----------
     public void create(Familia familia) {
         EntityManager em = getEntityManager();
-        EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-            em.persist(familia);
-            tx.commit();
+            em.getTransaction().begin();
+
+            // evitar NPE y asegurar backrefs
+            if (familia.getAdopciones() == null) {
+                familia.setAdopciones(new ArrayList<>());
+            }   
+
+            em.persist(familia);              // INSERT
+            em.getTransaction().commit();
         } finally {
             if (em.isOpen()) em.close();
         }
     }
 
-    // READ by ID
-    public Familia findFamilia(int id) {
+    public void edit(Familia familia) throws Exception {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Familia.class, id);
+            em.getTransaction().begin();
+            em.merge(familia);               // UPDATE por ID
+            em.getTransaction().commit();
         } finally {
-            em.close();
+            if (em.isOpen()) em.close();
         }
     }
 
-    // READ all
+    public void destroy(Long id) throws Exception {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            // getReference es más liviano si sólo vamos a borrar
+            Familia f = em.getReference(Familia.class, id);
+            // Si querés borrar también adopciones huérfanas, considerá orphanRemoval=true en la entidad
+            em.remove(f);                    // DELETE
+            em.getTransaction().commit();
+        } finally {
+            if (em.isOpen()) em.close();
+        }
+    }
+
+    public Familia findFamilia(Integer id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Familia.class, id);   // SELECT por ID
+        } finally {
+            if (em.isOpen()) em.close();
+        }
+    }
+
     public List<Familia> findFamiliaEntities() {
-        EntityManager em = getEntityManager();
-        try {
-            TypedQuery<Familia> q = em.createQuery(
-                "SELECT f FROM Familia f ORDER BY f.id", Familia.class);
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
+        return findFamiliaEntities(true, -1, -1);
     }
 
-    // READ 
     public List<Familia> findFamiliaEntities(int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            TypedQuery<Familia> q = em.createQuery(
-                "SELECT f FROM Familia f ORDER BY f.id", Familia.class);
-            q.setMaxResults(maxResults);
-            q.setFirstResult(firstResult);
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
+        return findFamiliaEntities(false, maxResults, firstResult);
     }
 
-    // BÚSQUEDAS ÚTILES 
-    public Familia findByEmail(String email) {
+    @SuppressWarnings("unchecked")
+    private List<Familia> findFamiliaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<Familia> q = em.createQuery(
-                "SELECT f FROM Familia f WHERE f.email = :email", Familia.class);
-            q.setParameter("email", email);
-            List<Familia> res = q.getResultList();
-            return res.isEmpty() ? null : res.get(0);
-        } finally {
-            em.close();
-        }
-    }
-
-    public List<Familia> searchByNombreLike(String patron) {
-        EntityManager em = getEntityManager();
-        try {
-            TypedQuery<Familia> q = em.createQuery(
-                "SELECT f FROM Familia f WHERE LOWER(f.nombre) LIKE LOWER(:p) ORDER BY f.nombre",
-                Familia.class);
-            q.setParameter("p", "%" + patron + "%");
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    // UPDATE
-    public void edit(Familia familia) {
-        EntityManager em = getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(familia);
-            tx.commit();
-        } finally {
-            if (em.isOpen()) em.close();
-        }
-    }
-
-    // DELETE
-    public void destroy(int id) {
-        EntityManager em = getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Familia ref = em.find(Familia.class, id);
-            if (ref != null) {
-                em.remove(ref);
+            CriteriaQuery<Familia> cq = em.getCriteriaBuilder().createQuery(Familia.class);
+            Root<Familia> root = cq.from(Familia.class);
+            cq.select(root);
+            Query q = em.createQuery(cq);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
             }
-            tx.commit();
+            return q.getResultList();            // SELECT *
         } finally {
             if (em.isOpen()) em.close();
         }
     }
 
-    // COUNT 
-    public long getFamiliaCount() {
+    public int getFamiliaCount() {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT COUNT(f) FROM Familia f", Long.class)
-                     .getSingleResult();
+            CriteriaQuery<Long> cq = em.getCriteriaBuilder().createQuery(Long.class);
+            Root<Familia> rt = cq.from(Familia.class);
+            cq.select(em.getCriteriaBuilder().count(rt));
+            Query q = em.createQuery(cq);
+            return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+            if (em.isOpen()) em.close();
         }
-    }  
+    }
 }
