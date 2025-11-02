@@ -9,7 +9,7 @@ public interface VeterinarioDAO {
     Optional<Veterinario> buscarPorId(int id);
     List<Veterinario> listarTodos();
     Veterinario actualizar(Veterinario v);
-    void eliminar(int id);
+    void eliminar(Integer id);
 
     // Consultas de negocio útiles
     Optional<Veterinario> buscarPorEmail(String email);

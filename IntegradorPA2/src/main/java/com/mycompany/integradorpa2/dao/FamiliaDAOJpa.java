@@ -38,7 +38,7 @@ public class FamiliaDAOJpa implements FamiliaDAO {
     }
 
     @Override
-    public void eliminar(Long id) {
+    public void eliminar(Integer id) {
         try {
             ctrl.destroy(id);
         } catch (Exception e) {

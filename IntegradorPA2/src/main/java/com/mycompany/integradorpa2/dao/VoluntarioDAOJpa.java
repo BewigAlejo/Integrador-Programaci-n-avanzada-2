@@ -38,7 +38,7 @@ public class VoluntarioDAOJpa implements VoluntarioDAO {
     }
 
     @Override
-    public void eliminar(int id) {
+    public void eliminar(Integer id) {
         try {
             ctrl.destroy(id);
         } catch (Exception e) {

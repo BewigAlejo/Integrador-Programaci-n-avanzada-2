@@ -9,7 +9,7 @@ public interface VoluntarioDAO {
     Optional<Voluntario> buscarPorId(int id);
     List<Voluntario> listarTodos();
     Voluntario actualizar(Voluntario v);
-    void eliminar(int id);
+    void eliminar(Integer id);
 
     // Consultas de negocio (opcionales pero útiles)
     Optional<Voluntario> buscarPorEmail(String email);

@@ -38,7 +38,7 @@ public class VeterinarioDAOJpa implements VeterinarioDAO {
     }
 
     @Override
-    public void eliminar(int id) {
+    public void eliminar(Integer id) {
         try {
             ctrl.destroy(id);
         } catch (Exception e) {

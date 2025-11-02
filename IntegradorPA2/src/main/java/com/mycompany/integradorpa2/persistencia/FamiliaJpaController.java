@@ -53,7 +53,7 @@ public class FamiliaJpaController implements Serializable {
         }
     }
 
-    public void destroy(Long id) throws Exception {
+    public void destroy(Integer id) throws Exception {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();

@@ -1,12 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.integradorpa2.logica;
 
+import com.mycompany.integradorpa2.logica.enums.EstadoTarea;
+import com.mycompany.integradorpa2.logica.enums.TipoTarea;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,10 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author Usuario
- */
+
 @Entity
 public class Tarea {
     @Id
@@ -26,11 +23,13 @@ public class Tarea {
     private Long id;
     @Basic
     private String descripcion;
-    private String estadoTarea;   // p.ej. PENDIENTE / EN_PROCESO / HECHA
-    private String tipoTarea;     // p.ej. VISITA, RESCATE, TRASLADO
-  
     private String observacion;
-
+    
+    @Enumerated(EnumType.STRING)
+    private EstadoTarea estadoTarea;
+    
+    @Enumerated(EnumType.STRING)
+    private TipoTarea tipoTarea;
     // relaciones
     
     @ManyToOne
@@ -44,7 +43,7 @@ public class Tarea {
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
-    public Tarea(Long id, String descripcion, String estadoTarea, String tipoTarea, String observacion, Voluntario asignadaA, Gato gato, Date fecha) {
+    public Tarea(Long id, String descripcion, EstadoTarea estadoTarea, TipoTarea tipoTarea, String observacion, Voluntario asignadaA, Gato gato, Date fecha) {
         this.id = id;
         this.descripcion = descripcion;
         this.estadoTarea = estadoTarea;
@@ -73,19 +72,19 @@ public class Tarea {
         this.descripcion = descripcion;
     }
 
-    public String getEstadoTarea() {
+    public EstadoTarea getEstadoTarea() {
         return estadoTarea;
     }
 
-    public void setEstadoTarea(String estadoTarea) {
+    public void setEstadoTarea(EstadoTarea estadoTarea) {
         this.estadoTarea = estadoTarea;
     }
 
-    public String getTipoTarea() {
+    public TipoTarea getTipoTarea() {
         return tipoTarea;
     }
 
-    public void setTipoTarea(String tipoTarea) {
+    public void setTipoTarea(TipoTarea tipoTarea) {
         this.tipoTarea = tipoTarea;
     }
 

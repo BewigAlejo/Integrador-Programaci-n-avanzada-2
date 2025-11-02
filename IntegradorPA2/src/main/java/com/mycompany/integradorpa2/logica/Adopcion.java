@@ -4,10 +4,14 @@
  */
 package com.mycompany.integradorpa2.logica;
 
+import com.mycompany.integradorpa2.logica.enums.EstadoAdopcion;
+import com.mycompany.integradorpa2.logica.enums.TipoAdopcion;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,10 +31,16 @@ public class Adopcion implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long id;
-  
+    
+    @Enumerated(EnumType.STRING)
+    private TipoAdopcion tipoAdopcion;  //TEMPORAL / DEFINITIVA
+    
+    @Enumerated(EnumType.STRING)
+    private EstadoAdopcion estado;      // EN_PROCESO / APROBADA / RECHAZADA
+        
     @Basic
-    private String tipoAdopcion;  // p.ej. TEMPORAL / DEFINITIVA
-    private String estado;        // p.ej. EN_PROCESO / APROBADA / RECHAZADA
+    
+    
     private String observacion;
 
     // relaciones
@@ -47,7 +57,7 @@ public class Adopcion implements Serializable {
 
     public Adopcion() {}
     
-    public Adopcion(Long id, String tipoAdopcion, String estado, String observacion, Familia familia, Gato gato, Date fechaAdopcion) {
+    public Adopcion(Long id, TipoAdopcion tipoAdopcion, EstadoAdopcion estado, String observacion, Familia familia, Gato gato, Date fechaAdopcion) {
         this.id = id;
         this.tipoAdopcion = tipoAdopcion;
         this.estado = estado;
@@ -65,19 +75,19 @@ public class Adopcion implements Serializable {
         this.id = id;
     }
 
-    public String getTipoAdopcion() {
+    public TipoAdopcion getTipoAdopcion() {
         return tipoAdopcion;
     }
 
-    public void setTipoAdopcion(String tipoAdopcion) {
+    public void setTipoAdopcion(TipoAdopcion tipoAdopcion) {
         this.tipoAdopcion = tipoAdopcion;
     }
 
-    public String getEstado() {
+    public EstadoAdopcion getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoAdopcion estado) {
         this.estado = estado;
     }
 

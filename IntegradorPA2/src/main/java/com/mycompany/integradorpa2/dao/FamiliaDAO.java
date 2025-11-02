@@ -9,9 +9,8 @@ public interface FamiliaDAO {
     Optional<Familia> buscarPorId(Integer id);
     List<Familia> listarTodos();
     Familia actualizar(Familia f);
-    void eliminar(Long id);
+    void eliminar(Integer id);
 
-    // Consultas “de negocio” que te sirven:
     Optional<Familia> buscarPorEmail(String email);
     List<Familia> listarPorReputacionMin(int reputacionMin);
 }

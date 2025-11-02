@@ -4,11 +4,15 @@
  */
 package com.mycompany.integradorpa2.logica;
 import com.mycompany.integradorpa2.logica.Zona;
+import com.mycompany.integradorpa2.logica.enums.Disponibilidad;
+import com.mycompany.integradorpa2.logica.enums.Experiencia;
 
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,9 +24,11 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Voluntario extends Usuario {
-    @Basic
-    private String disponibilidad;
-    private String experiencia;
+    @Enumerated(EnumType.STRING)
+    private Disponibilidad disponibilidad;
+    
+    @Enumerated(EnumType.STRING)
+    private Experiencia experiencia;
     
     // relaciones
     
@@ -40,19 +46,19 @@ public class Voluntario extends Usuario {
     public Voluntario() {
     }
 
-    public String getDisponibilidad() {
+    public Disponibilidad getDisponibilidad() {
         return disponibilidad;
     }
 
-    public void setDisponibilidad(String disponibilidad) {
+    public void setDisponibilidad(Disponibilidad disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
 
-    public String getExperiencia() {
+    public Experiencia getExperiencia() {
         return experiencia;
     }
 
-    public void setExperiencia(String experiencia) {
+    public void setExperiencia(Experiencia experiencia) {
         this.experiencia = experiencia;
     }
 
