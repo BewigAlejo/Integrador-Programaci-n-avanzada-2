@@ -112,7 +112,7 @@ public class ReadGato extends javax.swing.JFrame {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto)); // (?i) = case-insensitive
         }
     }
-
+    
     private static String nvl(String s) { return s == null ? "" : s; }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -131,6 +131,7 @@ public class ReadGato extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaGatos = new javax.swing.JTable();
         botonSalir = new javax.swing.JButton();
+        botonEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +165,13 @@ public class ReadGato extends javax.swing.JFrame {
             }
         });
 
+        botonEliminar.setText("Eliminar");
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -184,9 +192,11 @@ public class ReadGato extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botonEliminar)
+                        .addGap(18, 18, 18)
                         .addComponent(botonSalir)))
                 .addContainerGap())
         );
@@ -203,7 +213,9 @@ public class ReadGato extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonSalir))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonSalir)
+                    .addComponent(botonEliminar)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -228,6 +240,39 @@ public class ReadGato extends javax.swing.JFrame {
         // TODO add your handling code here:
         Navigator.go(this, new GatosCRUD());
     }//GEN-LAST:event_botonSalirActionPerformed
+
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        // TODO add your handling code here:
+        int viewRow = tablaGatos.getSelectedRow();
+        if (viewRow < 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Seleccioná un gato en la tabla.");
+            return;
+        }
+
+        int modelRow = tablaGatos.convertRowIndexToModel(viewRow);
+        Long id = (Long) modelo.getValueAt(modelRow, 0);
+        String nombre = (String) modelo.getValueAt(modelRow, 1);
+
+        int r = javax.swing.JOptionPane.showConfirmDialog(
+            this,
+            "¿Eliminar el gato ID " + id + " (“" + nombre + "”)?",
+            "Confirmar eliminación",
+            javax.swing.JOptionPane.YES_NO_OPTION,
+            javax.swing.JOptionPane.WARNING_MESSAGE
+        );
+        if (r != javax.swing.JOptionPane.YES_OPTION) return;
+
+        try {
+            gatoDao.eliminar(id);
+            javax.swing.JOptionPane.showMessageDialog(this, "Gato eliminado.");
+            cargarTabla(); // refrescá la grilla
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "No se pudo eliminar: " + ex.getMessage(),
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_botonEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,6 +301,7 @@ public class ReadGato extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonActualizar;
+    private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

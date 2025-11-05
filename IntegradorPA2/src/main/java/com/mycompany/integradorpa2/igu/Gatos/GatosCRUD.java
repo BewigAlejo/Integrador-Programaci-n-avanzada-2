@@ -4,7 +4,6 @@
  */
 package com.mycompany.integradorpa2.igu.Gatos;
 
-import com.mycompany.integradorpa2.igu.Gatos.DeleteGato;
 import com.mycompany.integradorpa2.igu.Gatos.CreateGato;
 import com.mycompany.integradorpa2.igu.Main.Cruds;
 import com.mycompany.integradorpa2.igu.Main.Navigator;
@@ -36,8 +35,6 @@ public class GatosCRUD extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lbltitulo = new javax.swing.JLabel();
         botonReadGato = new javax.swing.JButton();
-        botonUpdateGato = new javax.swing.JButton();
-        botonDeleteGato = new javax.swing.JButton();
         botonCreateGato = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
@@ -56,30 +53,6 @@ public class GatosCRUD extends javax.swing.JFrame {
         botonReadGato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonReadGatoActionPerformed(evt);
-            }
-        });
-
-        botonUpdateGato.setText("Update");
-        botonUpdateGato.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonUpdateGatoMouseClicked(evt);
-            }
-        });
-        botonUpdateGato.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonUpdateGatoActionPerformed(evt);
-            }
-        });
-
-        botonDeleteGato.setText("Delete");
-        botonDeleteGato.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonDeleteGatoMouseClicked(evt);
-            }
-        });
-        botonDeleteGato.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonDeleteGatoActionPerformed(evt);
             }
         });
 
@@ -112,13 +85,9 @@ public class GatosCRUD extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(200, 200, 200)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(botonUpdateGato, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonCreateGato, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(botonCreateGato, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(botonReadGato, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonDeleteGato, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(botonReadGato, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(296, 296, 296)
                                 .addComponent(lbltitulo)))
@@ -137,11 +106,7 @@ public class GatosCRUD extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCreateGato, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonReadGato, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonDeleteGato, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonUpdateGato, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -168,14 +133,6 @@ public class GatosCRUD extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonReadGatoMouseClicked
 
-    private void botonUpdateGatoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonUpdateGatoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonUpdateGatoMouseClicked
-
-    private void botonDeleteGatoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonDeleteGatoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonDeleteGatoMouseClicked
-
     private void botonCreateGatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCreateGatoActionPerformed
         // TODO add your handling code here:
         Navigator.go(this, new CreateGato());
@@ -185,16 +142,6 @@ public class GatosCRUD extends javax.swing.JFrame {
         // TODO add your handling code here:
         Navigator.go(this, new ReadGato());
     }//GEN-LAST:event_botonReadGatoActionPerformed
-
-    private void botonUpdateGatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUpdateGatoActionPerformed
-        // TODO add your handling code here:
-        Navigator.go(this, new UpdateGato());
-    }//GEN-LAST:event_botonUpdateGatoActionPerformed
-
-    private void botonDeleteGatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDeleteGatoActionPerformed
-        // TODO add your handling code here:
-         Navigator.go(this, new DeleteGato());
-    }//GEN-LAST:event_botonDeleteGatoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -233,9 +180,7 @@ public class GatosCRUD extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCreateGato;
-    private javax.swing.JButton botonDeleteGato;
     private javax.swing.JButton botonReadGato;
-    private javax.swing.JButton botonUpdateGato;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbltitulo;
