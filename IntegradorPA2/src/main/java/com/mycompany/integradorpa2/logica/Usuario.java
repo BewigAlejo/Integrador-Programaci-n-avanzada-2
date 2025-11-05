@@ -26,19 +26,27 @@ public abstract class Usuario {
     protected String email;
     protected String telefono;
     protected String rol;
+    protected String usuario;
+    protected String contrasenia;
 
-    public Usuario(int id, String nombre, String email, String telefono, String rol) {
+    public Usuario(int id, String nombre, String email, String telefono, String rol, String usuario, String contrasenia) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
         this.rol = rol;
+        this.usuario = usuario;
+        this.contrasenia = contrasenia;
     }
     
     public Usuario(){
         
     }
-
+    
+    public String getUsuario(){
+        return usuario;
+    }
+    
     public int getId() {
         return id;
     }

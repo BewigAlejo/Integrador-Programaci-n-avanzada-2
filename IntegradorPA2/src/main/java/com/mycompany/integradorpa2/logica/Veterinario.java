@@ -25,8 +25,8 @@ public class Veterinario extends Usuario {
     @OneToMany(mappedBy = "veterinario", cascade = CascadeType.ALL)
     private List<EntradaHistorial> entradasGeneradas;
 
-    public Veterinario(int id, String nombre, String email, String telefono, String rol) {
-        super(id, nombre, email, telefono, rol);
+    public Veterinario(int id, String nombre, String email, String telefono, String rol, String usuario, String contrasenia) {
+        super(id, nombre, email, telefono, rol, usuario, contrasenia);
     }
 
     public Veterinario() {

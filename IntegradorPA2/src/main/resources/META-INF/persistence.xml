@@ -23,7 +23,7 @@
       <property name="javax.persistence.jdbc.url"
                 value="jdbc:mysql://127.0.0.1:3306/sistema_gatos?sslMode=DISABLED&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="javax.persistence.jdbc.password" value="hola"/>
+      <property name="javax.persistence.jdbc.password" value="juancho001"/>
 
       
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

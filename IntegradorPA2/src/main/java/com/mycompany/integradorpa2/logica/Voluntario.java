@@ -39,8 +39,8 @@ public class Voluntario extends Usuario {
     @OneToMany(mappedBy = "asignadaA", cascade = CascadeType.ALL)
     private List<Tarea> tareasAsignadas;
 
-    public Voluntario(int id, String nombre, String email, String telefono, String rol) {
-        super(id, nombre, email, telefono, rol);
+    public Voluntario(int id, String nombre, String email, String telefono, String rol, String usuario, String contrasenia) {
+        super(id, nombre, email, telefono, rol, usuario , contrasenia);
     }
 
     public Voluntario() {

@@ -43,7 +43,12 @@ public class Zona {
     }
 
     public Zona() {}
-    
+
+        @Override
+    public String toString() {
+        return this.getNombreZona(); // o el campo que corresponda
+    }
+
     public Long getId() {
         return id;
     }

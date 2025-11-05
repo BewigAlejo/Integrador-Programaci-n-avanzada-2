@@ -18,14 +18,14 @@ public class Familia extends Usuario {
     private String direccion;
     private String coordenadas;
     private Integer reputacion;
-
+    
     // relaciones
     
     @OneToMany(mappedBy = "familia", cascade = CascadeType.ALL)
     private List<Adopcion> adopciones;
 
-    public Familia(int id, String nombre, String email, String telefono, String rol) {
-        super(id, nombre, email, telefono, rol);
+    public Familia(int id, String nombre, String email, String telefono, String rol, String usuario, String contrasenia) {
+        super(id, nombre, email, telefono, rol, usuario, contrasenia);
     }
     
     
