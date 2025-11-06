@@ -6,6 +6,8 @@ package com.mycompany.integradorpa2.igu.Main;
 
 import com.mycompany.integradorpa2.igu.Gatos.GatosCRUD;
 import com.mycompany.integradorpa2.igu.Usuarios.UsuarioCRUD;
+import com.mycompany.integradorpa2.igu.Usuarios.UsuarioMenu;
+import com.mycompany.integradorpa2.igu.Zonas.ZonaCrud;
 
 /**
  *
@@ -62,6 +64,11 @@ public class Cruds extends javax.swing.JFrame {
         });
 
         botonZona.setText("Zonas");
+        botonZona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonZonaActionPerformed(evt);
+            }
+        });
 
         botonUsuario.setText("Usuario");
         botonUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -152,8 +159,13 @@ public class Cruds extends javax.swing.JFrame {
 
     private void botonUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUsuarioActionPerformed
         // TODO add your handling code here:
-        Navigator.go(this, new UsuarioCRUD());
+        Navigator.go(this, new UsuarioMenu());
     }//GEN-LAST:event_botonUsuarioActionPerformed
+
+    private void botonZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonZonaActionPerformed
+        // TODO add your handling code here:
+        Navigator.go(this, new ZonaCrud());
+    }//GEN-LAST:event_botonZonaActionPerformed
 
     /**
      * @param args the command line arguments
