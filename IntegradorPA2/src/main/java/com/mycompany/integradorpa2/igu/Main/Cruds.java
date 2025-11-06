@@ -5,6 +5,7 @@
 package com.mycompany.integradorpa2.igu.Main;
 
 import com.mycompany.integradorpa2.igu.Gatos.GatosCRUD;
+import com.mycompany.integradorpa2.igu.Usuarios.UsuarioCRUD;
 
 /**
  *
@@ -32,13 +33,10 @@ public class Cruds extends javax.swing.JFrame {
 
         lbltitulo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        lbltitulo1 = new javax.swing.JLabel();
-        botonVoluntario = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
         botonGatos = new javax.swing.JButton();
-        botonFamilia = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        botonVeterinario = new javax.swing.JButton();
+        botonZona = new javax.swing.JButton();
+        botonUsuario = new javax.swing.JButton();
         botonSalir = new javax.swing.JButton();
 
         lbltitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -47,13 +45,9 @@ public class Cruds extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lbltitulo1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lbltitulo1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbltitulo1.setText("Crud Menu");
-
-        botonVoluntario.setText("Voluntario");
-
-        jButton2.setText("jButton1");
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTitulo.setText("Crud Menu");
 
         botonGatos.setText("Gatos");
         botonGatos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -67,11 +61,14 @@ public class Cruds extends javax.swing.JFrame {
             }
         });
 
-        botonFamilia.setText("Familia");
+        botonZona.setText("Zonas");
 
-        jButton5.setText("jButton1");
-
-        botonVeterinario.setText("Veterinario");
+        botonUsuario.setText("Usuario");
+        botonUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonUsuarioActionPerformed(evt);
+            }
+        });
 
         botonSalir.setText("Salir");
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -90,42 +87,34 @@ public class Cruds extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(51, 51, 51)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(botonFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(botonGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonVeterinario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(botonUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(154, 154, 154)
-                                .addComponent(lbltitulo1)))
-                        .addGap(0, 45, Short.MAX_VALUE))
+                                .addComponent(lblTitulo)))
+                        .addGap(0, 57, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botonSalir)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(152, 152, 152)
+                .addComponent(botonZona, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addComponent(lbltitulo1)
+                .addComponent(lblTitulo)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonVeterinario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                    .addComponent(botonUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(botonZona, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(botonSalir)
                 .addContainerGap())
         );
@@ -134,16 +123,14 @@ public class Cruds extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -162,6 +149,11 @@ public class Cruds extends javax.swing.JFrame {
         // TODO add your handling code here:
           Navigator.go(this, new Gestion());
     }//GEN-LAST:event_botonSalirActionPerformed
+
+    private void botonUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUsuarioActionPerformed
+        // TODO add your handling code here:
+        Navigator.go(this, new UsuarioCRUD());
+    }//GEN-LAST:event_botonUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,15 +181,12 @@ public class Cruds extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonFamilia;
     private javax.swing.JButton botonGatos;
     private javax.swing.JButton botonSalir;
-    private javax.swing.JButton botonVeterinario;
-    private javax.swing.JButton botonVoluntario;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton botonUsuario;
+    private javax.swing.JButton botonZona;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lbltitulo;
-    private javax.swing.JLabel lbltitulo1;
     // End of variables declaration//GEN-END:variables
 }

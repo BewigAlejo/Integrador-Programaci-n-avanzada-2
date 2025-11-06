@@ -42,9 +42,21 @@ public abstract class Usuario {
     public Usuario(){
         
     }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
     
     public String getUsuario(){
         return usuario;
+    }
+    
+    public void setUsuario(String usuario){
+       this.usuario = usuario;
     }
     
     public int getId() {
