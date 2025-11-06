@@ -19,7 +19,7 @@ import javax.persistence.OneToOne;
 public class Gato {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
-    private int id;
+    private Long id;
     @Basic
     private String nombre;
     private String raza;
@@ -51,7 +51,7 @@ public class Gato {
     @OneToOne(mappedBy = "gato")
     private Adopcion adopcionActual;   // opcional
 
-    public Gato(int id, String nombre, String raza, Integer edad, String foto, EstadoSalud estadoDeSalud, String qr, boolean adoptado, Zona zona, HistorialMedico historialMedico, List<Tarea> tareas, Adopcion adopcionActual) {
+    public Gato(Long id, String nombre, String raza, Integer edad, String foto, EstadoSalud estadoDeSalud, String qr, boolean adoptado, Zona zona, HistorialMedico historialMedico, List<Tarea> tareas, Adopcion adopcionActual) {
         this.id = id;
         this.nombre = nombre;
         this.raza = raza;
@@ -68,11 +68,11 @@ public class Gato {
 
     public Gato() {}
     
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

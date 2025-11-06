@@ -159,7 +159,7 @@ public class AdopcionService {
         .toList();
     }
 
-    public List<Adopcion> listarAdopcionesDeGato(int gatoId) {
+    public List<Adopcion> listarAdopcionesDeGato(Long gatoId) {
         return adopcionDao.listarTodos().stream()
                 .filter(a -> a.getGato() != null && a.getGato().getId() == gatoId)
                 .toList();

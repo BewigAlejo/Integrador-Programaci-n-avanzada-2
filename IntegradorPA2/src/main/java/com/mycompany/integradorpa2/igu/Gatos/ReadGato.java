@@ -90,7 +90,7 @@ public class ReadGato extends javax.swing.JFrame {
         modelo.setRowCount(0); // limpiar
         List<Gato> gatos = gatoDao.listarTodos();
         for (Gato g : gatos) {
-            int id        = g.getId();
+            Long id        = g.getId();
             String nombre  = nvl(g.getNombre());
             String raza    = nvl(g.getRaza());
             Integer edad   = g.getEdad() != null ? g.getEdad() : 0;
