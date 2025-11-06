@@ -205,6 +205,7 @@ this.dispose(); // cierra la ventana actual (Principal) opcional
 
     private void botonOperacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOperacionesActionPerformed
         // TODO add your handling code here:
+        Navigator.go(this, new Operaciones());
     }//GEN-LAST:event_botonOperacionesActionPerformed
 
     private void botonReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReportesActionPerformed

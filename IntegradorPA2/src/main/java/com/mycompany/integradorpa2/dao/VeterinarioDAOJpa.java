@@ -6,6 +6,7 @@ import com.mycompany.integradorpa2.persistencia.VeterinarioJpaController;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.NoResultException;
 
 public class VeterinarioDAOJpa implements VeterinarioDAO {
 
@@ -48,6 +49,21 @@ public class VeterinarioDAOJpa implements VeterinarioDAO {
 
     // ------------- Consultas específicas -------------
 
+    public Optional<Veterinario> buscarPorUsuarioYPassword(String usuario, String pass) {
+        EntityManager em = ctrl.getEntityManager();
+        try {
+            Veterinario v = em.createQuery(
+                    "SELECT v FROM Veterinario v WHERE v.usuario = :u AND v.contrasenia = :p",
+                    Veterinario.class)
+                .setParameter("u", usuario)
+                .setParameter("p", pass)
+                .getSingleResult();
+            return Optional.of(v);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
+    
     @Override
     public Optional<Veterinario> buscarPorEmail(String email) {
         EntityManager em = ctrl.getEntityManager();

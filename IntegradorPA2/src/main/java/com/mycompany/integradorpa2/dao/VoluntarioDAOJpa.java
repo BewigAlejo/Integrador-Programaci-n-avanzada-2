@@ -1,11 +1,13 @@
 package com.mycompany.integradorpa2.dao;
 
+import com.mycompany.integradorpa2.logica.Veterinario;
 import com.mycompany.integradorpa2.logica.Voluntario;
 import com.mycompany.integradorpa2.persistencia.VoluntarioJpaController;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.NoResultException;
 
 public class VoluntarioDAOJpa implements VoluntarioDAO {
 
@@ -85,4 +87,21 @@ public class VoluntarioDAOJpa implements VoluntarioDAO {
             return q.getResultList();
         } finally { if (em.isOpen()) em.close(); }
     }
+    
+    
+    public Optional<Voluntario> buscarPorUsuarioYPassword(String usuario, String pass) {
+        EntityManager em = ctrl.getEntityManager();
+        try {
+            Voluntario v = em.createQuery(
+                    "SELECT v FROM Voluntario v WHERE v.usuario = :u AND v.contrasenia = :p",
+                    Voluntario.class)
+                .setParameter("u", usuario)
+                .setParameter("p", pass)
+                .getSingleResult();
+            return Optional.of(v);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
 }
+

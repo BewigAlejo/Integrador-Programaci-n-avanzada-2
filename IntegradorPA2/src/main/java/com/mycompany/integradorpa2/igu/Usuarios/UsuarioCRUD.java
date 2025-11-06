@@ -32,7 +32,6 @@ public class UsuarioCRUD extends javax.swing.JFrame {
     public UsuarioCRUD() {
         initComponents();
         setLocationRelativeTo(null);
-
         // Selección exclusiva
         grupoRoles.add(botonVeterinario);
         grupoRoles.add(botonVoluntario);

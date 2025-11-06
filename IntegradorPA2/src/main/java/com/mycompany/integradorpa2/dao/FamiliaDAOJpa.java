@@ -1,11 +1,13 @@
 package com.mycompany.integradorpa2.dao;
 
 import com.mycompany.integradorpa2.logica.Familia;
+import com.mycompany.integradorpa2.logica.Veterinario;
 import com.mycompany.integradorpa2.persistencia.FamiliaJpaController;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.NoResultException;
 
 public class FamiliaDAOJpa implements FamiliaDAO {
 
@@ -73,6 +75,21 @@ public class FamiliaDAOJpa implements FamiliaDAO {
             return q.getResultList();
         } finally {
             if (em.isOpen()) em.close();
+        }
+    }
+    
+    public Optional<Familia> buscarPorUsuarioYPassword(String usuario, String pass) {
+        EntityManager em = ctrl.getEntityManager();
+        try {
+            Familia f = em.createQuery(
+                    "SELECT f FROM Familia f WHERE f.usuario = :u AND f.contrasenia = :p",
+                    Familia.class)
+                .setParameter("u", usuario)
+                .setParameter("p", pass)
+                .getSingleResult();
+            return Optional.of(f);
+        } catch (NoResultException e) {
+            return Optional.empty();
         }
     }
 }
