@@ -30,13 +30,16 @@ public class VoluntarioCreate extends javax.swing.JFrame {
     
     
     private final VoluntarioDAO dao = new VoluntarioDAOJpa();
-    private final Voluntario vol; 
+    private final Voluntario vol;
+    private final Runnable onClose;
+
    
-    public VoluntarioCreate(Voluntario volBase, java.awt.Frame parent) {
+    public VoluntarioCreate(Voluntario volBase, java.awt.Frame parent, Runnable onClose) {
         initComponents();
         
         setLocationRelativeTo(parent);
         this.vol = volBase;
+        this.onClose = onClose;
 
             comboDisponibilidad.setModel(new javax.swing.DefaultComboBoxModel<>(
             Arrays.stream(Disponibilidad.values())
@@ -131,8 +134,8 @@ public class VoluntarioCreate extends javax.swing.JFrame {
                                     .addComponent(lblExperiencia))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comboExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(comboDisponibilidad, 0, 100, Short.MAX_VALUE)
+                                    .addComponent(comboExperiencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(botonCrear))
                         .addGap(0, 55, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -194,6 +197,7 @@ public class VoluntarioCreate extends javax.swing.JFrame {
 
         dao.crear(vol);  // persistís acá
         JOptionPane.showMessageDialog(this, "Voluntario creado. ID = " + vol.getId());
+        if (onClose != null) onClose.run();
         dispose();
     } catch (Exception ex) {
         ex.printStackTrace();

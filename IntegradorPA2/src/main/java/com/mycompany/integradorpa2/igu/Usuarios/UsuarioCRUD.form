@@ -83,7 +83,7 @@
                                               <Component id="txtTelefono" min="-2" max="-2" attributes="0"/>
                                               <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="47" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="lblContrasenia" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="txtContrasenia" min="-2" max="-2" attributes="0"/>
@@ -96,7 +96,6 @@
                               <Component id="botonFamilia" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="botonCrear" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="30" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -164,6 +163,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombre">
+          <Properties>
+            <Property name="columns" type="int" value="10"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblEmail">
           <Properties>
@@ -171,6 +173,12 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTelefono">
+          <Properties>
+            <Property name="columns" type="int" value="10"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefonoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTelefono">
           <Properties>
@@ -228,8 +236,17 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtUsuario">
+          <Properties>
+            <Property name="columns" type="int" value="10"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUsuarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEmail">
+          <Properties>
+            <Property name="columns" type="int" value="10"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblContrasenia">
           <Properties>
@@ -237,6 +254,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtContrasenia">
+          <Properties>
+            <Property name="columns" type="int" value="10"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtContraseniaActionPerformed"/>
           </Events>

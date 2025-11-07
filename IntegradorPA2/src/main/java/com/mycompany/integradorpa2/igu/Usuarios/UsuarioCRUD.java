@@ -4,6 +4,7 @@
  */
 package com.mycompany.integradorpa2.igu.Usuarios;
 
+import com.mycompany.integradorpa2.igu.Main.Operaciones;
 import com.mycompany.integradorpa2.dao.FamiliaDAOJpa;
 import com.mycompany.integradorpa2.dao.UsuarioDAO;
 import com.mycompany.integradorpa2.dao.UsuarioDAOJpa;
@@ -86,7 +87,16 @@ public class UsuarioCRUD extends javax.swing.JFrame {
 
         lblNombre.setText("Nombre:");
 
+        txtNombre.setColumns(10);
+
         lblEmail.setText("Email:");
+
+        txtTelefono.setColumns(10);
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
 
         lblTelefono.setText("Telefono:");
 
@@ -117,8 +127,18 @@ public class UsuarioCRUD extends javax.swing.JFrame {
 
         lblUsuario.setText("Usuario:");
 
+        txtUsuario.setColumns(10);
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
+
+        txtEmail.setColumns(10);
+
         lblContrasenia.setText("Contraseña:");
 
+        txtContrasenia.setColumns(10);
         txtContrasenia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContraseniaActionPerformed(evt);
@@ -154,7 +174,7 @@ public class UsuarioCRUD extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(lblContrasenia)
                                         .addGap(18, 18, 18)
                                         .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -163,7 +183,7 @@ public class UsuarioCRUD extends javax.swing.JFrame {
                             .addComponent(botonVoluntario)
                             .addComponent(botonFamilia)
                             .addComponent(botonCrear))
-                        .addGap(0, 30, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(85, 85, 85)
@@ -257,23 +277,43 @@ public class UsuarioCRUD extends javax.swing.JFrame {
         switch (rol) {
             case "VETERINARIO" -> {
                 Veterinario v = new Veterinario();
-                setBase(v); // ← solo datos base
-                // abrir formulario específico SIN persistir aún
-                new VeterinarioCreate(v, this).setVisible(true);
+                setBase(v); // llena nombre, email, user, pass, tel, rol
+
+                new VeterinarioCreate(v, this, () -> {
+                    // al cerrar CreateVeterinario volvemos al CRUD
+                    new UsuarioCRUD().setVisible(true);
+                }).setVisible(true);
+
+                // opcional: ocultar este mientras tanto
+                this.setVisible(false);
             }
             case "VOLUNTARIO" -> {
                 Voluntario vol = new Voluntario();
                 setBase(vol);
-                new VoluntarioCreate(vol, this).setVisible(true);
+                UsuarioCRUD.this.setVisible(false);
+
+                new VoluntarioCreate(
+                vol,
+                this,
+                () -> {                     // callback que se ejecuta cuando se cierra VoluntarioCreate
+                    dispose();              // cierra UsuarioCRUD
+                    new Operaciones().setVisible(true);  // vuelve a la pantalla Bienvenido
+                }
+            ).setVisible(true);;
+
             }
             case "FAMILIA" -> {
                 Familia f = new Familia();
                 setBase(f);
-                new FamiliaCreate(f, this).setVisible(true);
+
+                new FamiliaCreate(f, this, () -> {
+                    new UsuarioCRUD().setVisible(true);
+                }).setVisible(true);
+
+                this.setVisible(false);
             }
         }
-        // Si querés, ocultás esta ventana mientras tanto:
-        // this.setVisible(false);
+        
 
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
@@ -285,6 +325,14 @@ public class UsuarioCRUD extends javax.swing.JFrame {
     private void txtContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseniaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContraseniaActionPerformed
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

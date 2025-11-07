@@ -25,10 +25,12 @@ public class FamiliaCreate extends javax.swing.JFrame {
      */
     private final Familia fam;
     private final FamiliaDAO dao = new FamiliaDAOJpa();
-    public FamiliaCreate(Familia fam, JFrame parent) {
+    private final Runnable onClose;
+    public FamiliaCreate(Familia fam, JFrame parent, Runnable onClose) {
         initComponents();
         setLocationRelativeTo(parent);
         this.fam = fam;
+        this.onClose = onClose;
     }
 
     /**
@@ -163,6 +165,7 @@ public class FamiliaCreate extends javax.swing.JFrame {
 
             dao.crear(fam);  // recién acá se guarda
             JOptionPane.showMessageDialog(this, "Familia creada. ID = " + fam.getId());
+            if (onClose != null) onClose.run();
             dispose();
 
         } catch (Exception ex) {

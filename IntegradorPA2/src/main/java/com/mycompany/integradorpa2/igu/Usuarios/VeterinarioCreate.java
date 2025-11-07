@@ -25,10 +25,12 @@ public class VeterinarioCreate extends javax.swing.JFrame {
     
     private final Veterinario vet;                   // el objeto que viene armado con los datos base
     private final VeterinarioDAO dao = new VeterinarioDAOJpa(); // tu implementación JPA
-    public VeterinarioCreate(Veterinario vet, JFrame parent) {
+    private final Runnable onClose;
+    public VeterinarioCreate(Veterinario vetBase, java.awt.Frame parent, Runnable onClose) {
         initComponents();
         setLocationRelativeTo(parent);
-        this.vet = vet;
+        this.vet = vetBase;
+        this.onClose = onClose;
     }
 
     /**
@@ -57,6 +59,10 @@ public class VeterinarioCreate extends javax.swing.JFrame {
         lblTitulo.setText("Create Veterinario");
 
         lblDatos.setText("Ingrese los siguientes datos:");
+
+        txtMatricula.setColumns(10);
+
+        txtEspecialidad.setColumns(10);
 
         lblEspecialidad.setText("Especialidad:");
 
@@ -163,6 +169,7 @@ public class VeterinarioCreate extends javax.swing.JFrame {
 
             dao.crear(vet);  // ← recién acá se PERSISTE
             JOptionPane.showMessageDialog(this, "Veterinario creado. ID = " + vet.getId());
+            if (onClose != null) onClose.run();
             dispose();
 
         } catch (Exception ex) {
