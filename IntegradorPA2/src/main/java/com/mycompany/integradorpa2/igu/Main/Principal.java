@@ -5,6 +5,9 @@
 package com.mycompany.integradorpa2.igu.Main;
 import java.awt.BorderLayout;
 import java.awt.Image;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.ImageIcon;
 
 /**
@@ -21,6 +24,19 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         ajustarImagen();
+        
+         try {
+        EntityManagerFactory emf =
+                Persistence.createEntityManagerFactory("sistema_gatosPU");
+        EntityManager em = emf.createEntityManager();
+        em.close();
+        System.out.println("✅ Conexión OK y entidades cargadas.");
+        } catch (Exception e) {
+            System.err.println("❌ Error inicializando JPA: " + e.getMessage());
+            e.printStackTrace();
+            return; 
+        }
+        
     }
     
     private void ajustarImagen() {

@@ -2,14 +2,28 @@ package com.mycompany.integradorpa2;
 import com.mycompany.integradorpa2.consola.AdminMenu;
 import com.mycompany.integradorpa2.consola.GatoMenu;
 import java.util.Scanner;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class IntegradorPA2 {
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) {             
         Scanner sc = new Scanner(System.in);
         AdminMenu adminMenu = new AdminMenu(); 
        
+        try {
+        EntityManagerFactory emf =
+                Persistence.createEntityManagerFactory("sistema_gatosPU");
+        EntityManager em = emf.createEntityManager();
+        em.close();
+        System.out.println("✅ Conexión OK y entidades cargadas.");
+        } catch (Exception e) {
+            System.err.println("❌ Error inicializando JPA: " + e.getMessage());
+            e.printStackTrace();
+            return; 
+        }
+
         
         int opcion;
         do {
