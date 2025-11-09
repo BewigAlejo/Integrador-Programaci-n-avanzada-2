@@ -4,6 +4,7 @@
  */
 package com.mycompany.integradorpa2.igu.Operaciones;
 
+import com.mycompany.integradorpa2.igu.Main.Navigator;
 import com.mycompany.integradorpa2.logica.Familia;
 
 /**
@@ -31,27 +32,59 @@ public class OperacionesFamilia extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbltitulo = new javax.swing.JLabel();
+        botonVerGatos = new javax.swing.JButton();
+        BotonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Familia");
+        lbltitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lbltitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbltitulo.setText("Menu Familia");
+
+        botonVerGatos.setText("Ver gatos");
+        botonVerGatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVerGatosActionPerformed(evt);
+            }
+        });
+
+        BotonSalir.setText("Salir");
+        BotonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel1)
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(botonVerGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BotonSalir)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(lbltitulo)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(lbltitulo)
+                .addGap(30, 30, 30)
+                .addComponent(botonVerGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(BotonSalir)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -73,6 +106,15 @@ public class OperacionesFamilia extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonVerGatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerGatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonVerGatosActionPerformed
+
+    private void BotonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSalirActionPerformed
+        // TODO add your handling code here:
+        Navigator.go(this, new InicioSesion());
+    }//GEN-LAST:event_BotonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,7 +142,9 @@ public class OperacionesFamilia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton BotonSalir;
+    private javax.swing.JButton botonVerGatos;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbltitulo;
     // End of variables declaration//GEN-END:variables
 }

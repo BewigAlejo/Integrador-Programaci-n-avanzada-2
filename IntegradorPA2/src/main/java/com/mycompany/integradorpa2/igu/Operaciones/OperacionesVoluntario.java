@@ -32,7 +32,11 @@ public class OperacionesVoluntario extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbltitulo = new javax.swing.JLabel();
+        botonGestionarTareas = new javax.swing.JButton();
+        BotonSalir = new javax.swing.JButton();
+        botonRegistrarGatos = new javax.swing.JButton();
+        botonAsignarGatos = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -47,23 +51,74 @@ public class OperacionesVoluntario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Voluntario");
+        lbltitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lbltitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbltitulo.setText("Menu Voluntario");
+
+        botonGestionarTareas.setText("Gestionar Tareas");
+        botonGestionarTareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGestionarTareasActionPerformed(evt);
+            }
+        });
+
+        BotonSalir.setText("Salir");
+        BotonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonSalirActionPerformed(evt);
+            }
+        });
+
+        botonRegistrarGatos.setText("Registrar Gatos");
+        botonRegistrarGatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarGatosActionPerformed(evt);
+            }
+        });
+
+        botonAsignarGatos.setText("Asignar Gatos");
+        botonAsignarGatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAsignarGatosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel1)
-                .addContainerGap(297, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(lbltitulo)
+                        .addGap(0, 94, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BotonSalir)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonAsignarGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonRegistrarGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonGestionarTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(172, 172, 172))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lbltitulo)
+                .addGap(43, 43, 43)
+                .addComponent(botonGestionarTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonRegistrarGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonAsignarGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(BotonSalir)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -85,6 +140,23 @@ public class OperacionesVoluntario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonGestionarTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionarTareasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonGestionarTareasActionPerformed
+
+    private void BotonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSalirActionPerformed
+        // TODO add your handling code here:
+        Navigator.go(this, new InicioSesion());
+    }//GEN-LAST:event_BotonSalirActionPerformed
+
+    private void botonRegistrarGatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarGatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonRegistrarGatosActionPerformed
+
+    private void botonAsignarGatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAsignarGatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAsignarGatosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,8 +184,12 @@ public class OperacionesVoluntario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton BotonSalir;
+    private javax.swing.JButton botonAsignarGatos;
+    private javax.swing.JButton botonGestionarTareas;
+    private javax.swing.JButton botonRegistrarGatos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbltitulo;
     // End of variables declaration//GEN-END:variables
 }
