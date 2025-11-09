@@ -6,6 +6,7 @@ package com.mycompany.integradorpa2.igu.Operaciones;
 
 import com.mycompany.integradorpa2.igu.Main.Navigator;
 import com.mycompany.integradorpa2.igu.Main.Operaciones;
+import com.mycompany.integradorpa2.logica.Familia;
 
 /**
  *
@@ -291,7 +292,7 @@ public class InicioSesion extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new InicioSesion().setVisible(true));
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -18,8 +18,11 @@ public class OperacionesFamilia extends javax.swing.JFrame {
     /**
      * Creates new form OperacionesFamilia
      */
-    public OperacionesFamilia(Familia f) {
+    private final Familia familia;   // familia logueada    
+    public OperacionesFamilia(Familia familia) {
         initComponents();
+        setLocationRelativeTo(null);
+        this.familia = familia;
     }
 
     /**
@@ -35,6 +38,7 @@ public class OperacionesFamilia extends javax.swing.JFrame {
         lbltitulo = new javax.swing.JLabel();
         botonVerGatos = new javax.swing.JButton();
         BotonSalir = new javax.swing.JButton();
+        botonAdopciones = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,19 +60,28 @@ public class OperacionesFamilia extends javax.swing.JFrame {
             }
         });
 
+        botonAdopciones.setText("Adopciones");
+        botonAdopciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAdopcionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(botonVerGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BotonSalir)))
+                        .addComponent(BotonSalir))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonAdopciones, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonVerGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
@@ -82,7 +95,9 @@ public class OperacionesFamilia extends javax.swing.JFrame {
                 .addComponent(lbltitulo)
                 .addGap(30, 30, 30)
                 .addComponent(botonVerGatos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(botonAdopciones, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(BotonSalir)
                 .addContainerGap())
         );
@@ -109,12 +124,20 @@ public class OperacionesFamilia extends javax.swing.JFrame {
 
     private void botonVerGatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerGatosActionPerformed
         // TODO add your handling code here:
+        new FamiliaAdoptar(familia).setVisible(true);
+        dispose();
     }//GEN-LAST:event_botonVerGatosActionPerformed
 
     private void BotonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSalirActionPerformed
         // TODO add your handling code here:
         Navigator.go(this, new InicioSesion());
     }//GEN-LAST:event_BotonSalirActionPerformed
+
+    private void botonAdopcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAdopcionesActionPerformed
+        // TODO add your handling code here:
+         new FamiliaVerAdopciones(familia).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_botonAdopcionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,6 +166,7 @@ public class OperacionesFamilia extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonSalir;
+    private javax.swing.JButton botonAdopciones;
     private javax.swing.JButton botonVerGatos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbltitulo;

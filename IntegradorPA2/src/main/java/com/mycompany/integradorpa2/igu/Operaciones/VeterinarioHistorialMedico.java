@@ -1,0 +1,382 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package com.mycompany.integradorpa2.igu.Operaciones;
+
+import com.mycompany.integradorpa2.dao.GatoDAO;
+import com.mycompany.integradorpa2.dao.GatoDAOJpa;
+import com.mycompany.integradorpa2.logica.EntradaHistorial;
+import com.mycompany.integradorpa2.logica.Gato;
+import com.mycompany.integradorpa2.logica.HistorialMedico;
+import com.mycompany.integradorpa2.logica.Veterinario;
+import com.mycompany.integradorpa2.service.SeguimientoVeterinarioService;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
+/**
+ *
+ * @author Usuario
+ */
+public class VeterinarioHistorialMedico extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VeterinarioHistorialMedico.class.getName());
+
+    /**
+     * Creates new form VeterinarioHistorialMedico
+     */
+    
+
+    // =========================================================
+    // Campos
+    // =========================================================
+    private final Veterinario veterinario;
+    private final SeguimientoVeterinarioService service = new SeguimientoVeterinarioService();
+    private final GatoDAO gatoDao = new GatoDAOJpa();
+
+    private DefaultTableModel modelo;
+    private DefaultTableModel modeloEntradas;
+    private TableRowSorter<DefaultTableModel> sorter;
+    
+    private enum ModoTabla { GATOS, ENTRADAS }
+    private ModoTabla modo = ModoTabla.GATOS;
+
+    private Long gatoSeleccionadoId; // para refrescar entradas
+    public VeterinarioHistorialMedico(Veterinario veterinario) {
+        initComponents();
+        setLocationRelativeTo(null);
+        this.veterinario = veterinario;
+
+        configurarTabla();
+        configurarFiltro();
+        cargarTablaGatosConHistorial();
+    }
+    
+    
+        // =========================================================
+    // Configuración tabla y filtro
+    // =========================================================
+    
+
+    private void configurarTabla() {
+        modelo = new DefaultTableModel(
+                new Object[]{"ID Gato", "Nombre", "Entradas"}, 0
+        ) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+
+            @Override public Class<?> getColumnClass(int col) {
+                return switch (col) {
+                    case 0, 2 -> Long.class;   // ID, Entradas (ajustá si usás Integer)
+                    default -> String.class;
+                };
+            }
+        };
+        tablaHistorial.setModel(modelo);
+        tablaHistorial.getTableHeader().setReorderingAllowed(false);
+    }
+
+    // === FILTRO POR TEXTO ===
+    private void configurarFiltro() {
+        sorter = new TableRowSorter<>(modelo);
+        tablaHistorial.setRowSorter(sorter);
+
+        DocumentListener dl = new DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+        };
+        txtBuscar.getDocument().addDocumentListener(dl);
+    }
+
+    private void filtrar() {
+        String texto = txtBuscar.getText().trim();
+        if (texto.isEmpty()) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+        }
+    }
+
+    private String nvl(String s) {
+        return (s == null) ? "" : s;
+    }
+
+    // === Cargar lista de gatos que tienen historial con entradas ===
+    private void cargarTablaGatosConHistorial() {
+        try {
+            modelo.setRowCount(0);
+            // nos aseguramos de que las columnas sean las de resumen
+            modelo.setColumnIdentifiers(new Object[]{"ID Gato", "Nombre", "Entradas"});
+
+            List<Gato> gatos = service.listarGatosConHistorial();
+
+            for (Gato g : gatos) {
+                int cant = 0;
+                if (g.getHistorialMedico() != null &&
+                        g.getHistorialMedico().getEntradas() != null) {
+                    cant = g.getHistorialMedico().getEntradas().size();
+                }
+
+                modelo.addRow(new Object[]{
+                        g.getId(),
+                        nvl(g.getNombre()),
+                        (long) cant  // si definiste la col 2 como Long; usa cant si es Integer
+                });
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al cargar historiales: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+    
+    
+
+
+
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        lbltitulo = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaHistorial = new javax.swing.JTable();
+        botonSalir = new javax.swing.JButton();
+        lblBuscar = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        botonActualizar = new javax.swing.JButton();
+        botonVerHistorial = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lbltitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lbltitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbltitulo.setText("Historial Medico");
+
+        tablaHistorial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaHistorial);
+
+        botonSalir.setText("Salir");
+        botonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalirActionPerformed(evt);
+            }
+        });
+
+        lblBuscar.setText("Buscar gato:");
+
+        txtBuscar.setMinimumSize(new java.awt.Dimension(200, 22));
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+
+        botonActualizar.setText("Actualizar");
+        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarActionPerformed(evt);
+            }
+        });
+
+        botonVerHistorial.setText("Ver Historial");
+        botonVerHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVerHistorialActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(94, 94, 94)
+                                .addComponent(lbltitulo))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblBuscar)
+                                        .addGap(41, 41, 41)
+                                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(52, 52, 52)
+                                        .addComponent(botonActualizar))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 24, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botonVerHistorial)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonSalir)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbltitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonSalir)
+                        .addComponent(botonVerHistorial))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblBuscar)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonActualizar))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102)))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+        // TODO add your handling code here:
+        new OperacionesVeterinario(veterinario).setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_botonSalirActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void botonVerHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerHistorialActionPerformed
+            int viewRow = tablaHistorial.getSelectedRow();
+        if (viewRow < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un gato de la tabla.");
+            return;
+        }
+
+        int modelRow = tablaHistorial.convertRowIndexToModel(viewRow);
+        Long gatoId = (Long) modelo.getValueAt(modelRow, 0);
+
+        try {
+            modelo.setRowCount(0);
+            modelo.setColumnIdentifiers(new Object[]{
+                    "ID Entrada", "Fecha", "Veterinario", "Diagnóstico", "Tratamiento"
+            });
+
+            List<EntradaHistorial> entradas = service.listarEntradasPorGato(gatoId);
+
+            if (entradas == null || entradas.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ese gato no tiene entradas de historial.");
+                // volvemos a la vista de gatos
+                cargarTablaGatosConHistorial();
+                return;
+            }
+
+            for (EntradaHistorial e : entradas) {
+                String vetNombre = (e.getVeterinario() != null)
+                        ? e.getVeterinario().getNombre()
+                        : "-";
+
+                modelo.addRow(new Object[]{
+                        e.getId(),
+                        e.getFecha(),
+                        vetNombre,
+                        e.getDiagnostico(),
+                        e.getTratamiento()
+                });
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al cargar historial del gato: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_botonVerHistorialActionPerformed
+
+    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
+        cargarTablaGatosConHistorial();
+        filtrar();
+    }//GEN-LAST:event_botonActualizarActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizar;
+    private javax.swing.JButton botonSalir;
+    private javax.swing.JButton botonVerHistorial;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lbltitulo;
+    private javax.swing.JTable tablaHistorial;
+    private javax.swing.JTextField txtBuscar;
+    // End of variables declaration//GEN-END:variables
+}

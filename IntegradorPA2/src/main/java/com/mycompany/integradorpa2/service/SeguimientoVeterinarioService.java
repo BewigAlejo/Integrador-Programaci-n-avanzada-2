@@ -18,25 +18,23 @@ import java.util.List;
 
 public class SeguimientoVeterinarioService {
 
-    private final GatoDAO gatoDao = new GatoDAOJpa();
+        private final GatoDAO gatoDao = new GatoDAOJpa();
     private final VeterinarioDAO vetDao = new VeterinarioDAOJpa();
     private final HistorialMedicoDAO historialDao = new HistorialMedicoDAOJpa();
     private final EntradaHistorialDAO entradaDao = new EntradaHistorialDAOJpa();
 
     // =========================================================================
-    // 1) Obtener historial médico de un gato
+    // 1) Obtener historial médico de un gato (crea si no existe)
     // =========================================================================
     public HistorialMedico obtenerOCrearHistorial(Long gatoId) {
         Gato gato = gatoDao.buscarPorId(gatoId)
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Gato no encontrado con ID: " + gatoId));
 
-        // Si el gato ya tiene historial asociado, lo devolvemos
         if (gato.getHistorialMedico() != null) {
             return gato.getHistorialMedico();
         }
 
-        // Si no tiene, creamos uno nuevo
         HistorialMedico historial = new HistorialMedico();
         historial.setGato(gato);
         historial.setFechaApertura(java.sql.Date.valueOf(java.time.LocalDate.now()));
@@ -46,14 +44,6 @@ public class SeguimientoVeterinarioService {
         gatoDao.actualizar(gato);
 
         return guardado;
-    }
-
-    /*
-      Listar entradas del historial de un gato.
-     */
-    public List<EntradaHistorial> listarEntradasPorGato(Long gatoId) {
-        HistorialMedico historial = obtenerOCrearHistorial(gatoId);
-        return historial.getEntradas();
     }
 
     // =========================================================================
@@ -79,6 +69,7 @@ public class SeguimientoVeterinarioService {
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Veterinario no encontrado con ID: " + veterinarioId));
 
+        // Siempre nos aseguramos de tener historial
         HistorialMedico historial = obtenerOCrearHistorial(gatoId);
 
         EntradaHistorial entrada = new EntradaHistorial();
@@ -87,15 +78,47 @@ public class SeguimientoVeterinarioService {
         entrada.setDiagnostico(diagnostico);
         entrada.setTratamiento(tratamiento);
         entrada.setFecha(java.sql.Date.valueOf(java.time.LocalDate.now()));
+        // si querés usar estudios / aptoAdopcion, setéalos acá
 
-        
-        
+        EntradaHistorial guardada = entradaDao.crear(entrada);
 
-        return entradaDao.crear(entrada);
+        // mantener relación en memoria (por si la usás en esta sesión)
+        if (historial.getEntradas() != null) {
+            historial.getEntradas().add(guardada);
+        }
+
+        return guardada;
     }
 
     // =========================================================================
-    // 3) Marcar explícitamente apto para adopción (si lo querés separado)
+    // 3) Entradas por gato (SIEMPRE frescas, sin crear historial nuevo)
+    // =========================================================================
+    public List<EntradaHistorial> listarEntradasPorGato(Long gatoId) {
+        return entradaDao.listarTodos().stream()
+                .filter(e -> e.getHistorial() != null
+                        && e.getHistorial().getGato() != null
+                        && gatoId.equals(e.getHistorial().getGato().getId()))
+                .toList();
+    }
+
+    // =========================================================================
+    // 4) Gatos con historial (usando entradas reales)
+    // =========================================================================
+    public List<Gato> listarGatosConHistorial() {
+        // juntamos los IDs de gatos que tienen al menos una entrada
+        var idsConEntradas = entradaDao.listarTodos().stream()
+                .filter(e -> e.getHistorial() != null && e.getHistorial().getGato() != null)
+                .map(e -> e.getHistorial().getGato().getId())
+                .collect(java.util.stream.Collectors.toSet());
+
+        // devolvemos sólo esos gatos
+        return gatoDao.listarTodos().stream()
+                .filter(g -> idsConEntradas.contains(g.getId()))
+                .toList();
+    }
+
+    // =========================================================================
+    // 5) Certificado apto (usa registrarEntrada)
     // =========================================================================
     public EntradaHistorial emitirCertificadoApto(
             Long gatoId,

@@ -4,6 +4,7 @@
  */
 package com.mycompany.integradorpa2.igu.Operaciones;
 
+import com.mycompany.integradorpa2.igu.Main.Navigator;
 import com.mycompany.integradorpa2.logica.Voluntario;
 
 /**

@@ -4,6 +4,7 @@
  */
 package com.mycompany.integradorpa2.igu.Operaciones;
 
+import com.mycompany.integradorpa2.igu.Main.Navigator;
 import com.mycompany.integradorpa2.logica.Veterinario;
 
 /**
@@ -17,8 +18,12 @@ public class OperacionesVeterinario extends javax.swing.JFrame {
     /**
      * Creates new form OperacionesVeterinario
      */
-    public OperacionesVeterinario(Veterinario v) {
+    
+    private final Veterinario veterinario;   // veterinario logueado
+    public OperacionesVeterinario(Veterinario veterinario) {
         initComponents();
+        setLocationRelativeTo(null);
+         this.veterinario = veterinario;
     }
 
     /**
@@ -82,7 +87,7 @@ public class OperacionesVeterinario extends javax.swing.JFrame {
                                 .addComponent(botonConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(99, 99, 99)
                                 .addComponent(botonHistorialMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 115, Short.MAX_VALUE)))
+                        .addGap(0, 113, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -94,7 +99,7 @@ public class OperacionesVeterinario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonHistorialMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(BotonSalir)
                 .addContainerGap())
         );
@@ -120,11 +125,15 @@ public class OperacionesVeterinario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonHistorialMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHistorialMedicoActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:\
+         new VeterinarioHistorialMedico(veterinario).setVisible(true);
+        dispose();
     }//GEN-LAST:event_botonHistorialMedicoActionPerformed
 
     private void botonConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultaActionPerformed
         // TODO add your handling code here:
+         new VeterinarioConsultaMedica(veterinario).setVisible(true);
+        dispose();
     }//GEN-LAST:event_botonConsultaActionPerformed
 
     private void BotonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSalirActionPerformed
