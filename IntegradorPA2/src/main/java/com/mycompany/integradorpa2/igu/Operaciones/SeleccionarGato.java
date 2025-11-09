@@ -1,0 +1,360 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package com.mycompany.integradorpa2.igu.Operaciones;
+
+import com.mycompany.integradorpa2.dao.GatoDAO;
+import com.mycompany.integradorpa2.dao.GatoDAOJpa;
+import com.mycompany.integradorpa2.igu.Main.Navigator;
+import com.mycompany.integradorpa2.logica.Gato;
+import com.mycompany.integradorpa2.logica.Voluntario;
+import com.mycompany.integradorpa2.logica.Zona;
+import java.util.List;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
+
+
+public class SeleccionarGato extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SeleccionarGato.class.getName());
+
+    private DefaultTableModel modelo4;
+    private TableRowSorter<DefaultTableModel> sorter4;
+    private final GatoDAO gatoDao = new GatoDAOJpa();
+    private Long gatoSeleccionadoId;   // para usarlo al registrar tarea
+    private Voluntario voluntario;
+    
+    public SeleccionarGato(Voluntario voluntario) {
+        initComponents();          
+        setLocationRelativeTo(null);
+        configurarTablaGatos4();
+        configurarFiltroGatos4();
+        cargarTablaGatos4();
+        this.voluntario = voluntario;
+
+    botonActualizar4.addActionListener(e -> cargarTablaGatos4());
+    botonSeleccionar5.addActionListener(e -> seleccionarGatoDesdeTabla4());
+
+    tablaGatos4.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent e) {
+            if (e.getClickCount() == 2 && javax.swing.SwingUtilities.isLeftMouseButton(e)) {
+                seleccionarGatoDesdeTabla4();
+            }
+        }
+    }
+);
+    }
+    
+private void configurarTablaGatos4() {
+    modelo4 = new DefaultTableModel(
+            new Object[]{"ID", "Nombre", "Raza", "Edad", "Estado", "Adoptado", "Zona"}, 0
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return switch (columnIndex) {
+                case 0 -> Long.class;
+                case 3 -> int.class;
+                default -> String.class;
+            };
+        }
+    };
+
+    tablaGatos4.setModel(modelo4);
+    tablaGatos4.getTableHeader().setReorderingAllowed(false);
+}
+
+private void configurarFiltroGatos4() {
+    sorter4 = new TableRowSorter<>(modelo4);
+    tablaGatos4.setRowSorter(sorter4);
+
+    javax.swing.event.DocumentListener dl = new javax.swing.event.DocumentListener() {
+        @Override
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrarGatos4(); }
+
+        @Override
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrarGatos4(); }
+
+        @Override
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrarGatos4(); }
+    };
+
+    txtBuscar4.getDocument().addDocumentListener(dl);
+}
+
+private void filtrarGatos4() {
+    String texto = txtBuscar4.getText().trim();
+    if (texto.isEmpty()) {
+        sorter4.setRowFilter(null);
+    } else {
+        sorter4.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+    }
+}
+
+private void cargarTablaGatos4() {
+    modelo4.setRowCount(0);
+
+    List<Gato> gatos = gatoDao.listarTodos(); // acá podés filtrar solo disponibles si querés
+
+    for (Gato g : gatos) {
+        Long id       = g.getId();
+        String nombre = nvl(g.getNombre());
+        String raza   = nvl(g.getRaza());
+        Integer edad  = g.getEdad() != null ? g.getEdad() : 0;
+        String estado = g.getEstadoDeSalud() != null ? g.getEstadoDeSalud().name() : "";
+        String adopt  = g.isAdoptado() ? "Sí" : "No";
+        String zona   = (g.getZona() != null) ? nvl(g.getZona().getNombreZona()) : "";
+
+        modelo4.addRow(new Object[]{id, nombre, raza, edad, estado, adopt, zona});
+    }
+}
+
+private static String nvl(String s) {
+    return s == null ? "" : s;
+}
+
+
+// ====== SELECCIÓN ======
+private void seleccionarGatoDesdeTabla4() {
+    int viewRow = tablaGatos4.getSelectedRow();
+    if (viewRow < 0) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Seleccioná un gato de la tabla.");
+        return;
+    }
+
+    int modelRow = tablaGatos4.convertRowIndexToModel(viewRow);
+    Long gatoId = (Long) modelo4.getValueAt(modelRow, 0);
+    
+    // Abrir la ventana de registro de tarea, pasando voluntario + gato
+    new RegistrarTarea(voluntario, gatoId).setVisible(true);
+    dispose();
+
+    // Cerramos selector
+    dispose();
+}
+
+
+
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaGatos4 = new javax.swing.JTable();
+        lblBuscar4 = new javax.swing.JLabel();
+        txtBuscar4 = new javax.swing.JTextField();
+        botonActualizar4 = new javax.swing.JButton();
+        lbltitulo6 = new javax.swing.JLabel();
+        botonSeleccionar5 = new javax.swing.JButton();
+        botonActualizar6 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tablaGatos4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(tablaGatos4);
+
+        lblBuscar4.setText("Buscar gato:");
+
+        txtBuscar4.setMinimumSize(new java.awt.Dimension(200, 22));
+        txtBuscar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscar4ActionPerformed(evt);
+            }
+        });
+
+        botonActualizar4.setText("Actualizar");
+        botonActualizar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizar4ActionPerformed(evt);
+            }
+        });
+
+        lbltitulo6.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lbltitulo6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbltitulo6.setText("Seleccionar Gato");
+
+        botonSeleccionar5.setText("Seleccionar");
+        botonSeleccionar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSeleccionar5ActionPerformed(evt);
+            }
+        });
+
+        botonActualizar6.setText("Salir");
+        botonActualizar6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizar6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbltitulo6)
+                .addGap(191, 191, 191))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(botonSeleccionar5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonActualizar6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(lblBuscar4)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtBuscar4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonActualizar4)))
+                .addGap(31, 31, 31))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(lbltitulo6)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBuscar4)
+                    .addComponent(txtBuscar4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonActualizar4))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonSeleccionar5)
+                    .addComponent(botonActualizar6))
+                .addGap(12, 12, 12))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void botonActualizar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizar4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonActualizar4ActionPerformed
+
+    private void txtBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscar4ActionPerformed
+
+    private void botonSeleccionar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSeleccionar5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonSeleccionar5ActionPerformed
+
+    private void botonActualizar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizar6ActionPerformed
+        
+    }//GEN-LAST:event_botonActualizar6ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizar;
+    private javax.swing.JButton botonActualizar1;
+    private javax.swing.JButton botonActualizar2;
+    private javax.swing.JButton botonActualizar3;
+    private javax.swing.JButton botonActualizar4;
+    private javax.swing.JButton botonActualizar6;
+    private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonEliminar1;
+    private javax.swing.JButton botonEliminar2;
+    private javax.swing.JButton botonEliminar3;
+    private javax.swing.JButton botonSalir;
+    private javax.swing.JButton botonSalir1;
+    private javax.swing.JButton botonSalir2;
+    private javax.swing.JButton botonSalir3;
+    private javax.swing.JButton botonSeleccionar5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblBuscar1;
+    private javax.swing.JLabel lblBuscar2;
+    private javax.swing.JLabel lblBuscar3;
+    private javax.swing.JLabel lblBuscar4;
+    private javax.swing.JLabel lbltitulo2;
+    private javax.swing.JLabel lbltitulo3;
+    private javax.swing.JLabel lbltitulo4;
+    private javax.swing.JLabel lbltitulo5;
+    private javax.swing.JLabel lbltitulo6;
+    private javax.swing.JTable tablaGatos;
+    private javax.swing.JTable tablaGatos1;
+    private javax.swing.JTable tablaGatos2;
+    private javax.swing.JTable tablaGatos3;
+    private javax.swing.JTable tablaGatos4;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtBuscar1;
+    private javax.swing.JTextField txtBuscar2;
+    private javax.swing.JTextField txtBuscar3;
+    private javax.swing.JTextField txtBuscar4;
+    // End of variables declaration//GEN-END:variables
+}

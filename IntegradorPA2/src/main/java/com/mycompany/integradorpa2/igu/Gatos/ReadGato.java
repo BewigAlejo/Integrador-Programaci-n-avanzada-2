@@ -142,6 +142,11 @@ public class ReadGato extends javax.swing.JFrame {
         lblBuscar.setText("Buscar gato:");
 
         txtBuscar.setMinimumSize(new java.awt.Dimension(200, 22));
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
 
         botonActualizar.setText("Actualizar");
 
@@ -273,6 +278,10 @@ public class ReadGato extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
     /**
      * @param args the command line arguments
