@@ -4,6 +4,7 @@
  */
 package com.mycompany.integradorpa2.igu.Operaciones;
 
+import com.mycompany.integradorpa2.igu.Gatos.CreateGato;
 import com.mycompany.integradorpa2.igu.Main.Navigator;
 import com.mycompany.integradorpa2.logica.Voluntario;
 
@@ -152,11 +153,11 @@ public class OperacionesVoluntario extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonSalirActionPerformed
 
     private void botonRegistrarGatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarGatosActionPerformed
-        // TODO add your handling code here:
+        Navigator.go(this, new CreateGato());        
     }//GEN-LAST:event_botonRegistrarGatosActionPerformed
 
     private void botonAsignarGatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAsignarGatosActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_botonAsignarGatosActionPerformed
 
     /**

@@ -181,4 +181,24 @@ public class AdopcionService {
                 .orElseThrow(() -> new IllegalArgumentException("Familia no encontrada: " + familiaId));
         return familiaDao.actualizar(f);
     }
+    
+        // ============================================================
+    // Adopciones EN_PROCESO (para asignar gato / seguimiento)
+    // ============================================================
+    public List<Adopcion> listarAdopcionesEnProceso() {
+        return adopcionDao.listarTodos().stream()
+                .filter(a -> a.getEstado() == EstadoAdopcion.EN_PROCESO)
+                .filter(a -> a.getGato() != null)
+                .toList();
+    }
+
+    public List<Gato> listarGatosConAdopcionEnProceso() {
+        // usamos las adopciones en proceso para obtener los gatos
+        return listarAdopcionesEnProceso().stream()
+                .map(Adopcion::getGato)
+                .filter(g -> g != null)
+                .distinct()
+                .toList();
+    }
+
 }

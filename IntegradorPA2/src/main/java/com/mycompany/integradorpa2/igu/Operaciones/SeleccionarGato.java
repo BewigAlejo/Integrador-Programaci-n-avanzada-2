@@ -273,10 +273,6 @@ private void seleccionarGatoDesdeTabla4() {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonActualizar4ActionPerformed
 
-    private void txtBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscar4ActionPerformed
-
     private void botonSeleccionar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSeleccionar5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonSeleccionar5ActionPerformed
@@ -284,6 +280,10 @@ private void seleccionarGatoDesdeTabla4() {
     private void botonActualizar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizar6ActionPerformed
         
     }//GEN-LAST:event_botonActualizar6ActionPerformed
+
+    private void txtBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscar4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,50 +311,14 @@ private void seleccionarGatoDesdeTabla4() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonActualizar;
-    private javax.swing.JButton botonActualizar1;
-    private javax.swing.JButton botonActualizar2;
-    private javax.swing.JButton botonActualizar3;
     private javax.swing.JButton botonActualizar4;
     private javax.swing.JButton botonActualizar6;
-    private javax.swing.JButton botonEliminar;
-    private javax.swing.JButton botonEliminar1;
-    private javax.swing.JButton botonEliminar2;
-    private javax.swing.JButton botonEliminar3;
-    private javax.swing.JButton botonSalir;
-    private javax.swing.JButton botonSalir1;
-    private javax.swing.JButton botonSalir2;
-    private javax.swing.JButton botonSalir3;
     private javax.swing.JButton botonSeleccionar5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JLabel lblBuscar;
-    private javax.swing.JLabel lblBuscar1;
-    private javax.swing.JLabel lblBuscar2;
-    private javax.swing.JLabel lblBuscar3;
     private javax.swing.JLabel lblBuscar4;
-    private javax.swing.JLabel lbltitulo2;
-    private javax.swing.JLabel lbltitulo3;
-    private javax.swing.JLabel lbltitulo4;
-    private javax.swing.JLabel lbltitulo5;
     private javax.swing.JLabel lbltitulo6;
-    private javax.swing.JTable tablaGatos;
-    private javax.swing.JTable tablaGatos1;
-    private javax.swing.JTable tablaGatos2;
-    private javax.swing.JTable tablaGatos3;
     private javax.swing.JTable tablaGatos4;
-    private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtBuscar1;
-    private javax.swing.JTextField txtBuscar2;
-    private javax.swing.JTextField txtBuscar3;
     private javax.swing.JTextField txtBuscar4;
     // End of variables declaration//GEN-END:variables
 }
