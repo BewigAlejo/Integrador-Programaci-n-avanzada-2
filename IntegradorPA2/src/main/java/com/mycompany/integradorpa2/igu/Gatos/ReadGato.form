@@ -67,6 +67,8 @@
                       <Component id="jScrollPane1" alignment="0" pref="598" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="botonGenerarQR" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="botonEliminar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="botonSalir" min="-2" max="-2" attributes="0"/>
@@ -93,6 +95,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botonSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botonEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botonGenerarQR" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -160,6 +163,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonEliminarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="botonGenerarQR">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Generar QR"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGenerarQRActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

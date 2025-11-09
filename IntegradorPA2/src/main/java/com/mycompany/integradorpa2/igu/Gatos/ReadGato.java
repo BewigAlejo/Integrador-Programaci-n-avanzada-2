@@ -4,6 +4,10 @@
  */
 package com.mycompany.integradorpa2.igu.Gatos;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.mycompany.integradorpa2.dao.GatoDAO;
 import com.mycompany.integradorpa2.dao.GatoDAOJpa;
 import com.mycompany.integradorpa2.igu.Main.Navigator;
@@ -13,7 +17,10 @@ import com.mycompany.integradorpa2.logica.enums.EstadoSalud;
 import java.util.Optional;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -132,6 +139,7 @@ public class ReadGato extends javax.swing.JFrame {
         tablaGatos = new javax.swing.JTable();
         botonSalir = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
+        botonGenerarQR = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,6 +185,13 @@ public class ReadGato extends javax.swing.JFrame {
             }
         });
 
+        botonGenerarQR.setText("Generar QR");
+        botonGenerarQR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGenerarQRActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -200,6 +215,8 @@ public class ReadGato extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botonGenerarQR)
+                        .addGap(18, 18, 18)
                         .addComponent(botonEliminar)
                         .addGap(18, 18, 18)
                         .addComponent(botonSalir)))
@@ -220,7 +237,8 @@ public class ReadGato extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonSalir)
-                    .addComponent(botonEliminar)))
+                    .addComponent(botonEliminar)
+                    .addComponent(botonGenerarQR)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,6 +301,62 @@ public class ReadGato extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
 
+    private void botonGenerarQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarQRActionPerformed
+        // TODO add your handling code here:
+        int viewRow = tablaGatos.getSelectedRow();
+        if (viewRow < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un gato de la tabla.");
+            return;
+        }
+
+        int modelRow = tablaGatos.convertRowIndexToModel(viewRow);
+        Object val = tablaGatos.getModel().getValueAt(modelRow, 0);
+        if (val == null) {
+            JOptionPane.showMessageDialog(this, "No se pudo obtener el ID del gato.");
+            return;
+        }
+
+        Long gatoId = (val instanceof Number) ? ((Number) val).longValue()
+                                              : Long.parseLong(val.toString());
+
+        try {
+            // 1) Buscar gato
+            Gato gato = gatoDao.buscarPorId(gatoId)
+                    .orElseThrow(() -> new IllegalArgumentException("Gato no encontrado: " + gatoId));
+
+            // 2) Definir contenido del QR (por ahora algo simple)
+            String contenidoQR = "GATO:" + gato.getId() + ":" + gato.getNombre();
+            // si querés: "https://miapp.com/gato/" + gato.getId();
+
+            // 3) Guardar el string en la entidad
+            gato.setQr(contenidoQR);
+            gatoDao.actualizar(gato);
+
+            // 4) Generar imagen QR con ZXing
+            int size = 250;
+            QRCodeWriter writer = new QRCodeWriter();
+            BitMatrix bitMatrix = writer.encode(contenidoQR,
+                    BarcodeFormat.QR_CODE, size, size);
+
+            BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+
+            // 5) Mostrar en un JOptionPane
+            ImageIcon icon = new ImageIcon(qrImage);
+            JOptionPane.showMessageDialog(this,
+                    null,
+                    "QR del gato " + gato.getNombre(),
+                    JOptionPane.PLAIN_MESSAGE,
+                    icon
+            );
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al generar QR: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_botonGenerarQRActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -311,6 +385,7 @@ public class ReadGato extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonActualizar;
     private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonGenerarQR;
     private javax.swing.JButton botonSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
