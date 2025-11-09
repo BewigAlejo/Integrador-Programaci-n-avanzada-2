@@ -124,6 +124,11 @@ public class CreateGato extends javax.swing.JFrame {
         });
 
         comboZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboZona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboZonaActionPerformed(evt);
+            }
+        });
 
         botonSalir.setText("Salir");
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -291,6 +296,10 @@ public class CreateGato extends javax.swing.JFrame {
         ex.printStackTrace();
     }
     }//GEN-LAST:event_botonCrearActionPerformed
+
+    private void comboZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboZonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboZonaActionPerformed
 
     private void limpiar() {
     txtNombre.setText("");

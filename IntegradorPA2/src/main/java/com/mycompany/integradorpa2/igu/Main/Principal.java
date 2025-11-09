@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.integradorpa2.igu.Main;
+import com.mycompany.integradorpa2.igu.Reportes.Reportes;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import javax.persistence.EntityManager;
@@ -226,6 +227,7 @@ this.dispose(); // cierra la ventana actual (Principal) opcional
 
     private void botonReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReportesActionPerformed
         // TODO add your handling code here:
+        Navigator.go(this, new Reportes());
     }//GEN-LAST:event_botonReportesActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
