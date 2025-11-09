@@ -47,21 +47,13 @@ public class TareaService {
         Tarea t = new Tarea();
         t.setAsignadaA(v);                     // ManyToOne Voluntario
         t.setTipoTarea(tipo);                  // enum
-        t.setEstadoTarea(EstadoTarea.HECHA);   // como es “realizada”, va directa a HECHA (ajustable)
+        t.setEstadoTarea(EstadoTarea.PENDIENTE);   
         t.setDescripcion(descripcion);
         t.setObservacion(observacion);
         t.setFecha(fecha);
         t.setGato(gato);
 
-        // ===== Ubicación / Zona =====
-        // Si tu entidad Tarea YA tiene relación con Zona (p.ej. `@ManyToOne Zona zona;`)
-        // descomenta la asignación. Si NO la tiene, mira la nota al final.
-        Zona zona = resolverZonaParaTarea(zonaId, v, gato);
-        try {
-            // t.setZona(zona);   // <-- usa esto si tu Tarea tiene el campo `Zona zona`
-        } catch (Exception ignored) {
-            // Si no existe el campo 'zona' en Tarea, lo ignoramos sin romper el flujo.
-        }
+      
 
         return tareaDao.crear(t);
     }
@@ -137,4 +129,26 @@ public class TareaService {
         // 4) Sin zona (permite registrar igual)
         return null;
     }
-}
+    
+    public Tarea actualizarEstadoYObservacion(Long tareaId,
+                                            EstadoTarea nuevoEstado,
+                                            String observacionExtra) {
+      Tarea t = tareaDao.buscarPorId(tareaId)
+              .orElseThrow(() -> new IllegalArgumentException("Tarea no encontrada: " + tareaId));
+
+      if (nuevoEstado != null) {
+          t.setEstadoTarea(nuevoEstado);
+      }
+
+      if (observacionExtra != null && !observacionExtra.isBlank()) {
+          String actual = t.getObservacion();
+          if (actual == null || actual.isBlank()) {
+              t.setObservacion(observacionExtra.trim());
+          } else {
+              t.setObservacion(actual + " | " + observacionExtra.trim());
+          }
+      }
+
+      return tareaDao.actualizar(t);
+  }
+}   

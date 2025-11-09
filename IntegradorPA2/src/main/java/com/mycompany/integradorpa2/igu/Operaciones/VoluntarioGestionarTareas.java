@@ -20,7 +20,7 @@ public class VoluntarioGestionarTareas extends javax.swing.JFrame {
      * Creates new form GestionarTareasVoluntario
      */
     private final Voluntario voluntario;
-
+    
     public VoluntarioGestionarTareas(Voluntario voluntario) {
         initComponents();
         this.voluntario = voluntario;
@@ -39,7 +39,6 @@ public class VoluntarioGestionarTareas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lbltitulo = new javax.swing.JLabel();
         botonRegistrarTarea = new javax.swing.JButton();
-        botonVerTareas = new javax.swing.JButton();
         BotonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,13 +51,6 @@ public class VoluntarioGestionarTareas extends javax.swing.JFrame {
         botonRegistrarTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegistrarTareaActionPerformed(evt);
-            }
-        });
-
-        botonVerTareas.setText("Ver Tareas");
-        botonVerTareas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVerTareasActionPerformed(evt);
             }
         });
 
@@ -76,20 +68,17 @@ public class VoluntarioGestionarTareas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addComponent(botonRegistrarTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botonVerTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addComponent(lbltitulo)))
-                        .addGap(0, 53, Short.MAX_VALUE))
+                        .addGap(61, 61, 61)
+                        .addComponent(lbltitulo)
+                        .addGap(0, 65, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(BotonSalir)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(botonRegistrarTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,9 +86,7 @@ public class VoluntarioGestionarTareas extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(lbltitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonRegistrarTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonVerTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(botonRegistrarTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(BotonSalir)
                 .addContainerGap())
@@ -123,10 +110,6 @@ public class VoluntarioGestionarTareas extends javax.swing.JFrame {
         new SeleccionarGato(voluntario).setVisible(true);
     dispose();
     }//GEN-LAST:event_botonRegistrarTareaActionPerformed
-
-    private void botonVerTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerTareasActionPerformed
-        Navigator.go(this, new VerTareas());
-    }//GEN-LAST:event_botonVerTareasActionPerformed
 
     private void BotonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSalirActionPerformed
         // TODO add your handling code here:
@@ -161,7 +144,6 @@ public class VoluntarioGestionarTareas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonSalir;
     private javax.swing.JButton botonRegistrarTarea;
-    private javax.swing.JButton botonVerTareas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbltitulo;
     // End of variables declaration//GEN-END:variables

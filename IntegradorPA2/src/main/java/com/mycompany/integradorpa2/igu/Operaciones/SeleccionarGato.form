@@ -49,7 +49,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="botonSeleccionar5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="botonActualizar6" min="-2" pref="61" max="-2" attributes="0"/>
+                          <Component id="botonSalir6" min="-2" pref="61" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane5" alignment="1" pref="613" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
@@ -80,7 +80,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botonSeleccionar5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botonActualizar6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botonSalir6" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
@@ -146,12 +146,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonSeleccionar5ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="botonActualizar6">
+        <Component class="javax.swing.JButton" name="botonSalir6">
           <Properties>
             <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonActualizar6ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonSalir6ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

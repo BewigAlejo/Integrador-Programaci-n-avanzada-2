@@ -161,7 +161,7 @@ private void seleccionarGatoDesdeTabla4() {
         botonActualizar4 = new javax.swing.JButton();
         lbltitulo6 = new javax.swing.JLabel();
         botonSeleccionar5 = new javax.swing.JButton();
-        botonActualizar6 = new javax.swing.JButton();
+        botonSalir6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -205,10 +205,10 @@ private void seleccionarGatoDesdeTabla4() {
             }
         });
 
-        botonActualizar6.setText("Salir");
-        botonActualizar6.addActionListener(new java.awt.event.ActionListener() {
+        botonSalir6.setText("Salir");
+        botonSalir6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonActualizar6ActionPerformed(evt);
+                botonSalir6ActionPerformed(evt);
             }
         });
 
@@ -226,7 +226,7 @@ private void seleccionarGatoDesdeTabla4() {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(botonSeleccionar5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonActualizar6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botonSalir6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(lblBuscar4)
@@ -251,7 +251,7 @@ private void seleccionarGatoDesdeTabla4() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonSeleccionar5)
-                    .addComponent(botonActualizar6))
+                    .addComponent(botonSalir6))
                 .addGap(12, 12, 12))
         );
 
@@ -277,9 +277,10 @@ private void seleccionarGatoDesdeTabla4() {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonSeleccionar5ActionPerformed
 
-    private void botonActualizar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizar6ActionPerformed
-        
-    }//GEN-LAST:event_botonActualizar6ActionPerformed
+    private void botonSalir6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir6ActionPerformed
+        new OperacionesVoluntario(voluntario).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_botonSalir6ActionPerformed
 
     private void txtBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar4ActionPerformed
         // TODO add your handling code here:
@@ -312,7 +313,7 @@ private void seleccionarGatoDesdeTabla4() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonActualizar4;
-    private javax.swing.JButton botonActualizar6;
+    private javax.swing.JButton botonSalir6;
     private javax.swing.JButton botonSeleccionar5;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane5;
