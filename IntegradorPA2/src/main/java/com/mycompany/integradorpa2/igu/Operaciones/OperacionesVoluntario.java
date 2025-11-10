@@ -344,7 +344,9 @@ private void filtrarTareas() {
     }//GEN-LAST:event_BotonSalirActionPerformed
 
     private void botonRegistrarGatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarGatosActionPerformed
-        Navigator.go(this, new CreateGato());        
+ 
+        new RegistroGatos(voluntario).setVisible(true);
+        dispose(); // opcional
     }//GEN-LAST:event_botonRegistrarGatosActionPerformed
 
     private void botonAsignarGatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAsignarGatosActionPerformed

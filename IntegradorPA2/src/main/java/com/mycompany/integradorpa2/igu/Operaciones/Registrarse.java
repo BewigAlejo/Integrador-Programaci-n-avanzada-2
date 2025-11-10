@@ -4,6 +4,13 @@
  */
 package com.mycompany.integradorpa2.igu.Operaciones;
 
+import com.mycompany.integradorpa2.igu.Main.Navigator;
+import com.mycompany.integradorpa2.igu.Main.Operaciones;
+import com.mycompany.integradorpa2.logica.Familia;
+import com.mycompany.integradorpa2.logica.Usuario;
+import com.mycompany.integradorpa2.logica.Voluntario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
@@ -17,7 +24,23 @@ public class Registrarse extends javax.swing.JFrame {
      */
     public Registrarse() {
         initComponents();
+        grupoRoles.add(botonVoluntario);
+        grupoRoles.add(botonFamilia);
+
+        botonVoluntario.setActionCommand("VOLUNTARIO");
+        botonFamilia.setActionCommand("FAMILIA");
+
     }
+    
+    private void setBaseUsuario(Usuario u) {
+        u.setNombre(txtNombre.getText().trim());
+        u.setEmail(txtEmail.getText().trim());
+        u.setUsuario(txtUsuario.getText().trim());
+        u.setContrasenia(new String(txtContrasenia.getPassword()));
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,21 +51,289 @@ public class Registrarse extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoRoles = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        lblNombre = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        lblUsuario = new javax.swing.JLabel();
+        lblContrasenia = new javax.swing.JLabel();
+        txtContrasenia = new javax.swing.JPasswordField();
+        txtUsuario = new javax.swing.JTextField();
+        botonVoluntario = new javax.swing.JRadioButton();
+        botonFamilia = new javax.swing.JRadioButton();
+        botonRegistrarse = new javax.swing.JButton();
+        botonSalir = new javax.swing.JButton();
+        lblRol = new javax.swing.JLabel();
+        lbltitulo6 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblNombre.setText("Nombre:");
+
+        lblEmail.setText("Email:");
+
+        lblTelefono.setText("Telefono:");
+
+        txtTelefono.setColumns(10);
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
+
+        txtEmail.setColumns(10);
+
+        txtNombre.setColumns(10);
+
+        lblUsuario.setText("Usuario:");
+
+        lblContrasenia.setText("Contraseña:");
+
+        txtContrasenia.setColumns(10);
+        txtContrasenia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraseniaActionPerformed(evt);
+            }
+        });
+
+        txtUsuario.setColumns(10);
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
+
+        botonVoluntario.setText("Voluntario");
+
+        botonFamilia.setText("Familia");
+
+        botonRegistrarse.setText("Registrarse");
+        botonRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarseActionPerformed(evt);
+            }
+        });
+
+        botonSalir.setText("SALIR");
+        botonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalirActionPerformed(evt);
+            }
+        });
+
+        lblRol.setText("Seleccione un rol:");
+
+        lbltitulo6.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lbltitulo6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbltitulo6.setText("Registrarse");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botonSalir))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblRol)
+                            .addComponent(botonFamilia)
+                            .addComponent(botonVoluntario)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNombre)
+                                    .addComponent(lblEmail)
+                                    .addComponent(lblTelefono))
+                                .addGap(47, 47, 47)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(lblUsuario)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblContrasenia)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lbltitulo6)
+                            .addComponent(botonRegistrarse))
+                        .addGap(0, 33, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbltitulo6)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNombre)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEmail)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblUsuario)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblContrasenia)
+                            .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTelefono)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lblRol)
+                .addGap(18, 18, 18)
+                .addComponent(botonVoluntario)
+                .addGap(18, 18, 18)
+                .addComponent(botonFamilia)
+                .addGap(18, 18, 18)
+                .addComponent(botonRegistrarse)
+                .addGap(40, 40, 40)
+                .addComponent(botonSalir)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 343, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoActionPerformed
+
+    private void txtContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseniaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraseniaActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    
+    
+    
+    private void setBase(Voluntario v) {
+        v.setNombre(txtNombre.getText().trim());
+        v.setEmail(txtEmail.getText().trim());
+        v.setUsuario(txtUsuario.getText().trim());
+        v.setContrasenia(new String(txtContrasenia.getPassword()));
+    }
+
+    private void setBase(Familia f) {
+        f.setNombre(txtNombre.getText().trim());
+        f.setEmail(txtEmail.getText().trim());
+        f.setUsuario(txtUsuario.getText().trim());
+        f.setContrasenia(new String(txtContrasenia.getPassword()));
+    }
+
+    private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarseActionPerformed
+         try {
+            // 1) Validaciones básicas
+            if (txtNombre.getText().isBlank()
+                    || txtEmail.getText().isBlank()
+                    || txtUsuario.getText().isBlank()
+                    || txtContrasenia.getPassword().length == 0) {
+                JOptionPane.showMessageDialog(this,
+                        "Completá nombre, email, usuario y contraseña.");
+                return;
+            }
+
+            if (grupoRoles.getSelection() == null) {
+                JOptionPane.showMessageDialog(this, "Seleccioná un rol (Voluntario o Familia).");
+                return;
+            }
+
+            String rol = grupoRoles.getSelection().getActionCommand();
+
+            switch (rol) {
+                case "VOLUNTARIO" -> {
+                    Voluntario vol = new Voluntario();
+                    setBase(vol); // carga nombre, email, user, pass
+
+                    // Abrimos el formulario específico pasando:
+                    // (1) el voluntario base
+                    // (2) este frame como parent
+                    // (3) un callback para cuando terminen
+                    RegistroVoluntario pantalla = new RegistroVoluntario(
+                            vol,
+                            this,
+                            () -> {
+                                // Se ejecuta cuando RegistroVoluntario guarda OK
+                                this.dispose();
+                                new InicioSesion().setVisible(true);
+                            }
+                    );
+                    pantalla.setVisible(true);
+                    this.setVisible(false);
+                }
+
+                case "FAMILIA" -> {
+                    Familia fam = new Familia();
+                    setBase(fam);
+
+                    RegistroFamilia pantalla = new RegistroFamilia(
+                            fam,
+                            this,
+                            () -> {
+                                this.dispose();
+                                new InicioSesion().setVisible(true);
+                            }
+                    );
+                    pantalla.setVisible(true);
+                    this.setVisible(false);
+                }
+
+                default -> {
+                    JOptionPane.showMessageDialog(this,
+                            "Rol no reconocido: " + rol);
+                }
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al iniciar registro: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_botonRegistrarseActionPerformed
+
+    private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+        // TODO add your handling code here:
+        Navigator.go(this, new Operaciones());
+    }//GEN-LAST:event_botonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +361,23 @@ public class Registrarse extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton botonFamilia;
+    private javax.swing.JButton botonRegistrarse;
+    private javax.swing.JButton botonSalir;
+    private javax.swing.JRadioButton botonVoluntario;
+    private javax.swing.ButtonGroup grupoRoles;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblContrasenia;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblRol;
+    private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lbltitulo6;
+    private javax.swing.JPasswordField txtContrasenia;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -141,7 +141,7 @@ public class Operaciones extends javax.swing.JFrame {
 
     private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarseActionPerformed
         // TODO add your handling code here:
-        Navigator.go(this, new UsuarioCRUD());
+        Navigator.go(this, new Registrarse());
     }//GEN-LAST:event_botonRegistrarseActionPerformed
 
     /**
