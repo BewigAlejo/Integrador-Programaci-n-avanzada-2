@@ -6,6 +6,8 @@ import com.mycompany.integradorpa2.logica.enums.EstadoTarea;
 import com.mycompany.integradorpa2.logica.enums.TipoTarea;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -151,4 +153,56 @@ public class TareaService {
 
       return tareaDao.actualizar(t);
   }
+    
+    private LocalDate toLocalDate(Date fecha) {
+        return fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+    
+    public LocalDate calcularFechaVencimiento(Tarea t) {
+    if (t.getFecha() == null) {
+        return LocalDate.now();
+    }
+    LocalDate base = toLocalDate(t.getFecha());
+    int dias;
+
+    if (t.getTipoTarea() == null) {
+        dias = 3; // default
+    } else {
+        switch (t.getTipoTarea()) {
+            case RESCATE -> dias = 1;
+            case VISITA -> dias = 7;
+            case REVISION_MEDICA -> dias = 3;
+            case TRASLADO -> dias = 2;
+            default -> dias = 3;
+        }
+    }
+    return base.plusDays(dias);
+}
+
+    /*
+     * Devuelve A_TIEMPO / POR_VENCER / VENCIDA según hoy.
+     */
+    public String situacionSegunVencimiento(Tarea t) {
+        LocalDate hoy = LocalDate.now();
+        LocalDate vto = calcularFechaVencimiento(t);
+
+        if (hoy.isAfter(vto)) {
+            return "VENCIDA";
+        }
+        // Por vencer si faltan 0,1 o 2 días
+        if (!hoy.isAfter(vto) && !hoy.plusDays(2).isBefore(vto)) {
+            return "POR VENCER";
+        }
+        return "A TIEMPO";
+    }
+
+    /* 
+    * Lista de tareas para el calendario filtrando por estado (opcional).
+    */
+    public java.util.List<Tarea> listarParaCalendario(EstadoTarea estadoFiltro) {
+        return listarTodas().stream()
+                .filter(t -> estadoFiltro == null || t.getEstadoTarea() == estadoFiltro)
+                .toList();
+    }
+    
 }   

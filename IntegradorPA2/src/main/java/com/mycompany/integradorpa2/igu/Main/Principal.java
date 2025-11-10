@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.integradorpa2.igu.Main;
+import com.mycompany.integradorpa2.igu.Calendario.Calendario;
 import com.mycompany.integradorpa2.igu.Reportes.Reportes;
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -207,7 +208,7 @@ private void configurarImagenConLabel() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMapaActionPerformed
-        // TODO add your handling code here:
+        new Calendario().setVisible(true);
     }//GEN-LAST:event_botonMapaActionPerformed
 
     private void botonGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionActionPerformed
