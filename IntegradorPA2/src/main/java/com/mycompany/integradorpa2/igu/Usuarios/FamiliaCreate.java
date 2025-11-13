@@ -58,6 +58,10 @@ public class FamiliaCreate extends javax.swing.JFrame {
 
         lblCoordenadas.setText("Coordenadas:");
 
+        txtDireccion.setColumns(10);
+
+        txtCoordenadas.setColumns(10);
+
         lblDireccion.setText("Direccion:");
 
         botonCrear.setText("CREAR");
@@ -103,10 +107,10 @@ public class FamiliaCreate extends javax.swing.JFrame {
                                     .addComponent(lblDireccion)
                                     .addComponent(botonCrear))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCoordenadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(spinnerReputacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtCoordenadas, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(spinnerReputacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDireccion))))
                         .addGap(0, 33, Short.MAX_VALUE)))
                 .addContainerGap())
         );

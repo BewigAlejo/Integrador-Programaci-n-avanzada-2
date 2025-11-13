@@ -68,21 +68,38 @@ public class AdopcionService {
         Adopcion a = adopcionDao.buscarPorId(adopcionId)
                 .orElseThrow(() -> new IllegalArgumentException("Adopción no encontrada: " + adopcionId));
 
-        if (a.getEstado() == EstadoAdopcion.APROBADA) return a;
-        if (a.getGato() == null) throw new IllegalStateException("La adopción no tiene gato asociado.");
+        if (a.getGato() == null) {
+            throw new IllegalStateException("La adopción no tiene gato asociado.");
+        }
 
-        // aprobar
+        // Si ya está aprobada, devuelvo
+        if (a.getEstado() == EstadoAdopcion.APROBADA) {
+            return a;
+        }
+
+        // 1) Aprobar la adopción seleccionada
         a.setEstado(EstadoAdopcion.APROBADA);
         Adopcion actualizada = adopcionDao.actualizar(a);
 
-        // marcar gato como adoptado y colgar adopción actual
+        // 2) Marcar el gato como adoptado
         Gato g = a.getGato();
         g.setAdoptado(true);
         g.setAdopcionActual(actualizada);
         gatoDao.actualizar(g);
 
+        // 3) Rechazar TODAS las otras adopciones EN_PROCESO del mismo gato
+        adopcionDao.listarTodos().stream()
+                .filter(ot -> ot.getId() != null && !ot.getId().equals(actualizada.getId()))
+                .filter(ot -> ot.getGato() != null && ot.getGato().getId().equals(g.getId()))
+                .filter(ot -> ot.getEstado() == EstadoAdopcion.EN_PROCESO)
+                .forEach(ot -> {
+                    ot.setEstado(EstadoAdopcion.RECHAZADA);
+                    adopcionDao.actualizar(ot);
+                });
+
         return actualizada;
     }
+
 
     /* ============================================================
        Rechazar adopción -> estado RECHAZADA + liberar gato
@@ -150,20 +167,20 @@ public class AdopcionService {
                 .toList();
     }
 
-    public List<Adopcion> listarAdopcionesDeFamilia(Integer familiaId) {
-        Familia f = familiaDao.buscarPorId(familiaId)
-                .orElseThrow(() -> new IllegalArgumentException("Familia no encontrada: " + familiaId));
-        return adopcionDao.listarTodos().stream()
-        .filter(a -> a.getFamilia() != null
-                && a.getFamilia().getId() == f.getId())  
-        .toList();
-    }
-
     public List<Adopcion> listarAdopcionesDeGato(Long gatoId) {
-        return adopcionDao.listarTodos().stream()
-                .filter(a -> a.getGato() != null && a.getGato().getId() == gatoId)
-                .toList();
-    }
+    return adopcionDao.listarTodos().stream()
+            .filter(a -> a.getGato() != null
+                      && a.getGato().getId() != null
+                      && a.getGato().getId().equals(gatoId))
+            .toList();
+}
+
+    public List<Adopcion> listarAdopcionesDeFamilia(Integer familiaId) {
+    return adopcionDao.listarTodos().stream()
+            .filter(a -> a.getFamilia() != null
+                      && a.getFamilia().getId() == familiaId)  
+            .toList();
+}
 
     public Optional<Adopcion> adopcionPorId(Long id) {
         return adopcionDao.buscarPorId(id);
@@ -197,8 +214,10 @@ public class AdopcionService {
         return listarAdopcionesEnProceso().stream()
                 .map(Adopcion::getGato)
                 .filter(g -> g != null)
+                .filter(g -> !Boolean.TRUE.equals(g.isAdoptado())) // 👈 filtro: solo gatos NO adoptados
                 .distinct()
                 .toList();
     }
+
 
 }

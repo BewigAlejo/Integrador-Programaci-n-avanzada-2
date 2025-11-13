@@ -65,10 +65,10 @@
                                       <Component id="botonCrear" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="txtDireccion" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCoordenadas" min="-2" max="-2" attributes="0"/>
-                                      <Component id="spinnerReputacion" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtCoordenadas" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="spinnerReputacion" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDireccion" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -117,8 +117,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDireccion">
+          <Properties>
+            <Property name="columns" type="int" value="10"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCoordenadas">
+          <Properties>
+            <Property name="columns" type="int" value="10"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDireccion">
           <Properties>

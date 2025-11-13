@@ -350,7 +350,7 @@ private void filtrarTareas() {
     }//GEN-LAST:event_botonRegistrarGatosActionPerformed
 
     private void botonAsignarGatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAsignarGatosActionPerformed
-        
+        Navigator.go(this, new AsignarGato(voluntario));
     }//GEN-LAST:event_botonAsignarGatosActionPerformed
 
     private void jTextFieldBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscarActionPerformed
