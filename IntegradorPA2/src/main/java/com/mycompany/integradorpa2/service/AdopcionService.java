@@ -214,7 +214,7 @@ public class AdopcionService {
         return listarAdopcionesEnProceso().stream()
                 .map(Adopcion::getGato)
                 .filter(g -> g != null)
-                .filter(g -> !Boolean.TRUE.equals(g.isAdoptado())) // 👈 filtro: solo gatos NO adoptados
+                .filter(g -> !Boolean.TRUE.equals(g.isAdoptado())) //  filtro: solo gatos NO adoptados
                 .distinct()
                 .toList();
     }
